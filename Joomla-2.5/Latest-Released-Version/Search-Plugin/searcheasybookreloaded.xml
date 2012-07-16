@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="search" method="upgrade">
+    <name>PLG_SEARCH_SEARCHEASYBOOKRELOADED</name>
+    <author>Viktor Vogel</author>
+    <creationDate>16-Jul-2012</creationDate>
+    <copyright>Copyright 2012 Viktor Vogel. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>admin@kubik-rubik.de</authorEmail>
+    <authorUrl>http://joomla-extensions.kubik-rubik.de</authorUrl>
+    <version>2.5-1</version>
+    <description>PLG_SEARCH_SEARCHEASYBOOKRELOADED_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="searcheasybookreloaded">searcheasybookreloaded.php</filename>
+        <folder plugin="searcheasybookreloaded">fields</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_search_searcheasybookreloaded.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_search_searcheasybookreloaded.sys.ini</language>
+        <language tag="de-DE">language/de-DE/de-DE.plg_search_searcheasybookreloaded.ini</language>
+        <language tag="de-DE">language/de-DE/de-DE.plg_search_searcheasybookreloaded.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params" addfieldpath="/plugins/search/searcheasybookreloaded/fields">
+            <fieldset name="basic">
+                <field type="krdonationcodecheck" />
+                <field name="search_limit" type="text" size="5" default="10" label="PLG_SEARCH_SEARCHEASYBOOKRELOADED_LIMIT" description="PLG_SEARCH_SEARCHEASYBOOKRELOADED_LIMITDESC"/>
+            </fieldset>
+            <fieldset name="donation">
+                <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
