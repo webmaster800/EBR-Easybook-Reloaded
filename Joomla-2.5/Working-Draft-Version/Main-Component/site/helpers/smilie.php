@@ -24,7 +24,7 @@ jimport('joomla.application.component.helper');
 
 class EasybookReloadedHelperSmilie
 {
-    function getSmilies()
+    static function getSmilies()
     {
         $smiley[':zzz'] = "sm_sleep.gif";
         $smiley[';)'] = "sm_wink.gif";

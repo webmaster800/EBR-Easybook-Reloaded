@@ -2,12 +2,12 @@
 <extension version="2.5" type="plugin" group="search" method="upgrade">
     <name>PLG_SEARCH_SEARCHEASYBOOKRELOADED</name>
     <author>Viktor Vogel</author>
-    <creationDate>16-Jul-2012</creationDate>
+    <creationDate>18-Aug-2012</creationDate>
     <copyright>Copyright 2012 Viktor Vogel. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>admin@kubik-rubik.de</authorEmail>
     <authorUrl>http://joomla-extensions.kubik-rubik.de</authorUrl>
-    <version>2.5-1</version>
+    <version>2.5-2</version>
     <description>PLG_SEARCH_SEARCHEASYBOOKRELOADED_XML_DESCRIPTION</description>
     <files>
         <filename plugin="searcheasybookreloaded">searcheasybookreloaded.php</filename>
@@ -23,10 +23,18 @@
         <fields name="params" addfieldpath="/plugins/search/searcheasybookreloaded/fields">
             <fieldset name="basic">
                 <field type="krdonationcodecheck" />
+                <field type="krversioncheck" name="krversioncheck" default="ebr_search|2.5-2" />
                 <field name="search_limit" type="text" size="5" default="10" label="PLG_SEARCH_SEARCHEASYBOOKRELOADED_LIMIT" description="PLG_SEARCH_SEARCHEASYBOOKRELOADED_LIMITDESC"/>
             </fieldset>
             <fieldset name="donation">
                 <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+            </fieldset>
+            <fieldset name="versioncheck">
+                <field name="versioncheck_enable" type="list" default="1" label="KR_VERSION_CHECK" description="KR_VERSION_CHECKDESC">
+                    <option value="1">KR_VERSION_CHECK_ONCESESSION</option>
+                    <option value="2">KR_VERSION_CHECK_ONEVERYLOAD</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
         </fields>
     </config>

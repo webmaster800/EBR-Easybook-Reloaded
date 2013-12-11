@@ -27,7 +27,8 @@ class EasybookReloadedViewEasybookReloaded extends JView
     function display($tpl = null)
     {
         $document = JFactory::getDocument();
-        $menus = JSite::getMenu();
+        $menu = new JSite;
+        $menus = $menu->getMenu();
         $params = JComponentHelper::getParams('com_easybookreloaded');
 
         // Set CSS File
@@ -119,4 +120,5 @@ class EasybookReloadedViewEasybookReloaded extends JView
 
         parent::display($tpl);
     }
+
 }

@@ -274,6 +274,7 @@ $hashrequest = JRequest::getString('hash');
         <form name='gbookForm' action='<?php JRoute::_('index.php'); ?>' target='_top' method='post'>
             <input type='hidden' name='option' value='com_easybookreloaded' />
             <input type='hidden' name='task' value='save_mail' />
+            <?php echo JHTML::_('form.token'); ?>
             <?php if($this->entry->id) : ?>
                 <input type='hidden' name='id' value='<?php echo $this->entry->id; ?>' />
             <?php endif; ?>

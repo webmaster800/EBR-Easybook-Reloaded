@@ -121,4 +121,5 @@ class EasybookReloadedControllerEntry extends JController
 
         $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
     }
+
 }

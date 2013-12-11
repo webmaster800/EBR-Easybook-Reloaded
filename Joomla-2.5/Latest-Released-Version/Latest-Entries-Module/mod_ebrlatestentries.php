@@ -3,8 +3,8 @@
  *  @Copyright
  *  @package    Easybook Reloaded - Latest Entries Module Joomla 2.5 - Module
  *  @author     Viktor Vogel {@link http://www.kubik-rubik.de}
- *  @version    2.5-1
- *  @date       Created on 27-Apr-2012
+ *  @version    2.5-2
+ *  @date       Created on 18-Aug-2012
  *  @link       Project Site {@link http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded}
  *
  *  @license GNU/GPL

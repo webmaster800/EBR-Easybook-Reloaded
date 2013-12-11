@@ -42,3 +42,6 @@ defined('_JEXEC') or die('Restricted access');
         <img alt="Spende" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
     </div>
 </form>
+<div style="text-align: center;">
+    <p><?php echo JText::sprintf('COM_EASYBOOKRELOADED_VERSION', _EASYBOOK_VERSION) ?></p>
+</div>

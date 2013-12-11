@@ -149,5 +149,5 @@ defined('_JEXEC') or die('Restricted access');
     <?php echo JHTML::_('form.token'); ?>
 </form>
 <div style="text-align: center;">
-    <p><?php echo $this->version; ?></p>
+    <p><?php echo JText::sprintf('COM_EASYBOOKRELOADED_VERSION', _EASYBOOK_VERSION) ?></p>
 </div>

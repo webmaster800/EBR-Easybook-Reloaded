@@ -3,8 +3,8 @@
  *  @Copyright
  *  @package    Easybook Reloaded - Latest Entries Module Joomla 2.5 - Module
  *  @author     Viktor Vogel {@link http://www.kubik-rubik.de}
- *  @version    2.5-1
- *  @date       Created on 27-Apr-2012
+ *  @version    2.5-2
+ *  @date       Created on 17-Aug-2012
  *  @link       Project Site {@link http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded}
  *
  *  @license GNU/GPL
@@ -22,7 +22,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die('Restricted access');
-echo '<!-- Easybook Reloaded - Module Latest Entries - by Kubik-Rubik.de -->';
+echo '<!-- Easybook Reloaded - Module Latest Entries - Kubik-Rubik Joomla! Extensions -->';
 
 foreach($posts as $post) : ?>
     <div class="easylast_entry<?php echo $suffix; ?>">

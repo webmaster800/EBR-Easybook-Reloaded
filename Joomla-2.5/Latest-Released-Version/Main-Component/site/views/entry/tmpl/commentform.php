@@ -268,99 +268,78 @@ defined('_JEXEC') or die('Restricted access');
             }
         <?php } ?>
         </script>
-        <form name='gbookForm' action='<?php JRoute::_('index.php'); ?>' target='_top' method='post'>
-            <input type='hidden' name='option' value='com_easybookreloaded' />
-            <input type="hidden" name='task' value='savecomment'/>
-            <input type='hidden' name='controller' value='entry' />
-            <input type='hidden' name='id' value='<?php echo $this->entry->id; ?>' />
+        <form name="gbookForm" action="<?php JRoute::_('index.php'); ?>" target="_top" method="post">
+            <input type="hidden" name="option" value="com_easybookreloaded" />
+            <input type="hidden" name="task" value="savecomment"/>
+            <input type="hidden" name="controller" value="entry" />
+            <input type="hidden" name="id" value="<?php echo $this->entry->id; ?>" />
+            <?php echo JHTML::_('form.token'); ?>
 
-            <table align='center' width='90%' cellpadding='0' cellspacing='4' border='0' >
-            <?php
-            // Switch for BB Code support
-            if($this->params->get('support_bbcode', false))
-            {
-                ?>
+            <table align="center" width="90%" cellpadding="0" cellspacing="4" border="0" >
+            <?php if($this->params->get('support_bbcode', false)) : ?>
+                    <tr>
+                        <td width="130"></td>
+                        <td>
+                            <?php if($this->params->get('support_link', false)) : ?>
+                                <a href="javascript:x()" onclick="DoPrompt('url');"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/world_link.png" hspace="3" border="0" alt="" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_WEB_ADDRESS'); ?>" height="16" width="16" /></a>
+                            <?php endif; ?>
+                            <?php if($this->params->get('support_mail', true)) : ?>
+                                <a href="javascript:x()" onclick="DoPrompt('email');"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/email_link.png" hspace="3" border="0" alt="" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_EMAIL_ADDRESS'); ?>" height="16" width="16" /></a>
+                            <?php endif; ?>
+                            <?php if($this->params->get('support_pic', false)): ?>
+                                <a href="javascript:x()" onclick="DoPrompt('image_link');"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/picture_link.png" hspace="3" border="0" alt="" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SHOW_IMAGE_WITH_A_LINK'); ?>" height="16" width="16" /></a>
+                            <?php endif; ?>
+                            <?php if($this->params->get('support_pic', false)) : ?>
+                                <a href="javascript:x()" onclick="DoPrompt('image');"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/picture.png" hspace="3" border="0" alt="" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SHOWS_IMAGE_FROM_AN_URL'); ?>" height="16" width="16" /></a>
+                            <?php endif; ?>
+                            <?php if($this->params->get('support_code', false)) : ?>
+                                <a href="javascript:x()" onclick="DoPrompt('code');"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/code.png" hspace="3" border="0" alt="" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_ENTER_CODE'); ?>" height="16" width="16" /></a>
+                            <?php endif; ?>
+                            <?php if($this->params->get('support_youtube', false)) : ?>
+                                <a href="javascript:x()" onclick="DoPrompt('youtube');"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/youtube.png" hspace="3" border="0" alt="" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_YOUTUBE'); ?>" height="16" width="16" /></a>
+                            <?php endif; ?>
+                            <a href="javascript:x()" onclick="insert('[B]', '[/B]')"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_bold.png" hspace="3" border="0" alt="Bold" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_BOLD'); ?>" height="16" width="16" /></a>
+                            <a href="javascript:x()" onclick="insert('[I]', '[/I]')"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_italic.png" hspace="3" border="0" alt="Italic" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_ITALIC'); ?>" height="16" width="16" /></a>
+                            <a href="javascript:x()" onclick="insert('[U]', '[/U]')"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_underline.png" hspace="3" border="0" alt="Underline" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_UNDERLINE'); ?>" height="16" width="16" /></a>
+                            <a href="javascript:x()" onclick="insert('[CENTER]', '[/CENTER]')"><img src="<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_align_center.png" hspace="3" border="0" alt="Center" title="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_CENTER'); ?>" height="16" width="16" /></a>
+                        </td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
-                    <td width='130'></td>
-                    <td>
-                        <?php if($this->params->get('support_link', false))
-                        {
-                            ?>
-                            <a href='javascript:x()' onclick='DoPrompt("url");'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/world_link.png' hspace='3' border='0' alt='' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_WEB_ADDRESS'); ?>' height='16' width='16' /></a>
-                            <?php
-                        }
-                        if($this->params->get('support_mail', true))
-                        {
-                            ?>
-                            <a href='javascript:x()' onclick='DoPrompt("email");'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/email_link.png' hspace='3' border='0' alt='' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_EMAIL_ADDRESS'); ?>' height='16' width='16' /></a>
-                            <?php
-                        }
-                        if($this->params->get('support_pic', false))
-                        {
-                            ?>
-                            <a href='javascript:x()' onclick='DoPrompt("image_link");'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/picture_link.png' hspace='3' border='0' alt='' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SHOW_IMAGE_WITH_A_LINK'); ?>' height='16' width='16' /></a>
-                            <?php
-                        }
-                        if($this->params->get('support_pic', false))
-                        {
-                            ?>
-                            <a href='javascript:x()' onclick='DoPrompt("image");'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/picture.png' hspace='3' border='0' alt='' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SHOWS_IMAGE_FROM_AN_URL'); ?>' height='16' width='16' /></a>
-                            <?php
-                        }
-                        if($this->params->get('support_code', false))
-                        {
-                            ?>
-                            <a href='javascript:x()' onclick='DoPrompt("code");'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/code.png' hspace='3' border='0' alt='' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_ENTER_CODE'); ?>' height='16' width='16' /></a>
-                            <?php
-                        }
-                        if($this->params->get('support_youtube', false))
-                        {
-                            ?>
-                            <a href='javascript:x()' onclick='DoPrompt("youtube");'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/youtube.png' hspace='3' border='0' alt='' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_YOUTUBE'); ?>' height='16' width='16' /></a>
-                <?php } ?>
-                        <a href='javascript:x()' onclick='insert("[B]", "[/B]")'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_bold.png' hspace='3' border='0' alt='Bold' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_BOLD'); ?>' height='16' width='16' /></a>
-                        <a href='javascript:x()' onclick='insert("[I]", "[/I]")'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_italic.png' hspace='3' border='0' alt='Italic' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_ITALIC'); ?>' height='16' width='16' /></a>
-                        <a href='javascript:x()' onclick='insert("[U]", "[/U]")'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_underline.png' hspace='3' border='0' alt='Underline' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_UNDERLINE'); ?>' height='16' width='16' /></a>
-                        <a href='javascript:x()' onclick='insert("[CENTER]", "[/CENTER]")'><img src='<?php echo $this->baseurl ?>/components/com_easybookreloaded/images/text_align_center.png' hspace='3' border='0' alt='Center' title='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_CENTER'); ?>' height='16' width='16' /></a>
-                    </td>
-                </tr>
-            <?php } ?>
-                <tr>
-                    <td width='130' valign='top'><?php echo JTEXT::_('COM_EASYBOOKRELOADED_ADMIN_COMMENT'); ?>
-                        <br />
-                        <br />
-                        <?php
-                        # Switch for Smilie Support
-                        if($this->params->get('support_smilie', true))
+                    <td width="130" valign="top">
+                        <label for="gbtext"><?php echo JTEXT::_('COM_EASYBOOKRELOADED_GUESTBOOK_ENTRY'); ?></label><span class="small">*</span>
+                        <br /><br />
+                        <?php if($this->params->get('support_smilie', true))
                         {
                             $count = 1;
                             $smiley = EasybookReloadedHelperSmilie::getSmilies();
 
-                            foreach($smiley as $i => $sm)
+                            foreach($smiley as $key => $value)
                             {
                                 if($this->params->get('smilie_set') == 0)
                                 {
-                                    echo "<a href=\"javascript:insertsmilie('$i')\" title='$i'>".JHTML::_('image', 'components/com_easybookreloaded/images/smilies/'.$sm, $sm, 'border="0"')."</a> ";
+                                    echo '<a href="javascript:insertsmilie(\''.$key.'\')" title="'.$key.'">'.JHTML::_('image', 'components/com_easybookreloaded/images/smilies/'.$value, $value, 'border="0"').'</a> ';
                                 }
                                 else
                                 {
-                                    echo "<a href=\"javascript:insertsmilie('$i')\" title='$i'>".JHTML::_('image', 'components/com_easybookreloaded/images/smilies2/'.$sm, $sm, 'border="0"')."</a> ";
+                                    echo '<a href="javascript:insertsmilie(\''.$key.'\')" title="'.$key.'">'.JHTML::_('image', 'components/com_easybookreloaded/images/smilies2/'.$value, $value, 'border="0"').'</a> ';
                                 }
+
                                 if($count % 4 == 0)
                                 {
                                     echo "<br />";
                                 }
+
                                 $count++;
                             }
-                        }
-                        ?>
+                        } ?>
                     </td>
-                    <td valign='top'><textarea style='width:245px;' rows='8' cols='50' name='gbcomment' class='inputbox'><?php echo $this->entry->gbcomment; ?></textarea></td>
+                    <td valign="top"><textarea style="width:245px;" rows="8" cols="50" name="gbcomment" class="inputbox"><?php echo $this->entry->gbcomment; ?></textarea></td>
                 </tr>
-                <tr><td></td><td><input type="checkbox" name="inform" id="inform" value="1"> <label for='inform'><?php echo JTEXT::_('COM_EASYBOOKRELOADED_INFORM'); ?></label></td></tr>
+                <tr><td></td><td><input type="checkbox" name="inform" id="inform" value="1"> <label for="inform"><?php echo JTEXT::_('COM_EASYBOOKRELOADED_INFORM'); ?></label></td></tr>
                 <tr>
-                    <td width='130'></td>
-                    <td style='padding-left: 130px;'><br /><input type='submit' name='send' value='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SUBMIT_ENTRY'); ?>' class='button' /></td>
+                    <td width="130"></td>
+                    <td style="padding-left: 130px;"><br /><input type="submit" name="send" value="<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SUBMIT_ENTRY'); ?>" class="button" /></td>
                 </tr>
             </table>
         </form>

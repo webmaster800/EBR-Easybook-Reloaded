@@ -24,8 +24,7 @@ jimport('joomla.application.component.controller');
 
 class EasybookReloadedController extends JController
 {
-
-    function display()
+    function display($cachable = false, $urlparams = false)
     {
         parent::display();
     }
@@ -285,8 +284,7 @@ class EasybookReloadedController extends JController
 
         if($date_entry->toUnix() + $valid_time_emailnot <= $date_now->toUnix())
         {
-            $error = true;
-            return $error;
+            return false;
         }
 
         // Create a second hash link from the same data and compare it with the transmitted hash value
@@ -317,4 +315,5 @@ class EasybookReloadedController extends JController
 
         return true;
     }
+
 }

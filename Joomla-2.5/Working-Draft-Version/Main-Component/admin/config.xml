@@ -3,14 +3,15 @@
     <fields addfieldpath="/administrator/components/com_easybookreloaded/models/fields">
         <fieldset name="component">
             <field type="krdonationcodecheck" />
-            <field name="ebrtitle1" type="ebrtitle" default="COM_EASYBOOKRELOADED_RIGHTS" label="" description=""/>
+            <field type="krversioncheck" name="krversioncheck" default="ebr|2.5-6" />
+            <field name="spacer_rights" type="krtitle" label="COM_EASYBOOKRELOADED_RIGHTS" />
             <field name="offline" type="list" default="0" label="COM_EASYBOOKRELOADED_GUESTBOOK_OFFLINE" description="COM_EASYBOOKRELOADED_GUESTBOOK_OFFLINE_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
             <field name="add_acl" type="acl" multiple="true" size="8" default="1" label="COM_EASYBOOKRELOADED_ADD_ACL" description="COM_EASYBOOKRELOADED_ADD_ACL_DESC" />
             <field name="admin_acl" type="acl" multiple="true" size="8" default="8" label="COM_EASYBOOKRELOADED_ADMIN_ACL" description="COM_EASYBOOKRELOADED_ADMIN_ACL_DESC" />
-            <field name="ebrtitle2" type="ebrtitle" default="COM_EASYBOOKRELOADED_CONFIGURATION" label="" description=""/>
+            <field name="spacer_configuration" type="krtitle" label="COM_EASYBOOKRELOADED_CONFIGURATION" />
             <field name="default_published" type="list" default="1" label="COM_EASYBOOKRELOADED_PUBLISH_NEW_ENTRIES" description="COM_EASYBOOKRELOADED_PUBLISH_NEW_ENTRIES_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
@@ -50,6 +51,7 @@
                 <option value="2">COM_EASYBOOKRELOADED_JYESLANGUAGEFILE</option>
             </field>
             <field name="introtext" type="textarea" value="" rows="5" cols="40" filter="raw" label="COM_EASYBOOKRELOADED_INTROTEXT" description="COM_EASYBOOKRELOADED_INTROTEXT_DESC" />
+            <field name="admin_name" type="text" default="" label="COM_EASYBOOKRELOADED_ADMIN_NAME" description="COM_EASYBOOKRELOADED_ADMIN_NAME_DESC" />
             <field name="support_bbcode" type="list" default="1" label="COM_EASYBOOKRELOADED_ALLOW_BBCODE" description="COM_EASYBOOKRELOADED_ALLOW_BBCODE_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
@@ -110,7 +112,7 @@
                 <option value="2">COM_EASYBOOKRELOADED_TEXT</option>
                 <option value="3">COM_EASYBOOKRELOADED_TEXTINV</option>
             </field>
-            <field name="ebrtitle3" type="ebrtitle" default="COM_EASYBOOKRELOADED_FORM" label="" description=""/>
+            <field name="spacer_form" type="krtitle" label="COM_EASYBOOKRELOADED_FORM" />
             <field name="show_rating" type="list" default="1" label="COM_EASYBOOKRELOADED_SHOW_RATING" description="COM_EASYBOOKRELOADED_SHOW_RATING_DESC">
                 <option value="0">COM_EASYBOOKRELOADED_HIDE</option>
                 <option value="1">COM_EASYBOOKRELOADED_SHOW</option>
@@ -192,7 +194,7 @@
                 <option value="0">COM_EASYBOOKRELOADED_HIDE</option>
                 <option value="1">COM_EASYBOOKRELOADED_SHOW</option>
             </field>
-            <field name="ebrtitle4" type="ebrtitle" default="COM_EASYBOOKRELOADED_SPAM" label="" description=""/>
+            <field name="spacer_spam" type="krtitle" label="COM_EASYBOOKRELOADED_SPAM" />
             <field name="enable_spam" type="list" default="1" label="COM_EASYBOOKRELOADED_ENABLE_EASYCALCCHECK" description="COM_EASYBOOKRELOADED_ENABLE_EASYCALCCHECK_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
@@ -220,6 +222,13 @@
         </fieldset>
         <fieldset name="donation">
             <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+        </fieldset>
+        <fieldset name="versioncheck">
+            <field name="versioncheck_enable" type="list" default="1" label="KR_VERSION_CHECK" description="KR_VERSION_CHECKDESC">
+                <option value="1">KR_VERSION_CHECK_ONCESESSION</option>
+                <option value="2">KR_VERSION_CHECK_ONEVERYLOAD</option>
+                <option value="0">JNO</option>
+            </field>
         </fieldset>
         <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
             <field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" validate="rules"	filter="rules" component="com_easybookreloaded" section="component" />

@@ -29,8 +29,7 @@ class EasybookReloadedViewConfig extends JView
         JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_EASYBOOKRELOADED')." - ".JText::_('COM_EASYBOOKRELOADED_SUBMENU_CONFIG'), 'easybookreloaded');
         JHTML::_('stylesheet', 'easybookreloaded.css', 'administrator/components/com_easybookreloaded/css/');
 
-        $this->assign('version', '<p><a href="http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded" target="_blank" title="Easybook Reloaded">Easybook Reloaded - Version '._EASYBOOK_VERSION.'</a></strong>');
-
         parent::display($tpl);
     }
+
 }

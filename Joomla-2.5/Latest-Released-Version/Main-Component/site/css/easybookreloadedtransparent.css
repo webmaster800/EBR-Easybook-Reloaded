@@ -14,7 +14,7 @@ div.easy_pagination li {display: inline !important; padding: 0 5px !important;}
 .easy_contact {margin-left: 10px; text-align:left; margin-right: 10px; margin-top: 8px; padding: 5px; padding-bottom: 10px; position:relative;}
 .easy_content {margin-left: 10px; text-align:left; margin-right: 10px; margin-top: 8px; padding: 10px; padding-bottom: 15px; margin-bottom: 8px;}
 .easy_title {margin-left: 10px; text-align:left; margin-right: 10px; margin-top: 8px; padding: 10px; padding-bottom: 15px; margin-bottom: 8px; font-size: 130%; font-weight: bold;}
-.easy_intro {}
+.easy_intro {margin: 20px 0;}
 .easy_entrylink{padding-top: 10px;}
 .easy_center{text-align: center;}
 #easybook {}

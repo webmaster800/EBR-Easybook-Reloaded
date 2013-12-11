@@ -30,4 +30,5 @@ class TableBadword extends JTable
     {
         parent::__construct('#__easybook_badwords', 'id', $db);
     }
+
 }

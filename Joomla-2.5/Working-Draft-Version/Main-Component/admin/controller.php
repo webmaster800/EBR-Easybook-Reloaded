@@ -24,7 +24,7 @@ jimport('joomla.application.component.controller');
 
 class EasybookReloadedController extends JController
 {
-    function display()
+    function display($cachable = false, $urlparams = false)
     {
         $task = JRequest::getCmd('task');
 

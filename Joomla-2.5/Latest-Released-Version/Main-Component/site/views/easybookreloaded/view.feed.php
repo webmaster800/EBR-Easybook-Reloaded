@@ -59,5 +59,5 @@ class EasybookReloadedViewEasybookReloaded extends JView
             $document->addItem($feeditem);
         }
     }
+
 }
-?>

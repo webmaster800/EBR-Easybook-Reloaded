@@ -1,6 +1,6 @@
 <?php
 /**
- * EBR - Easybook Reloaded for Joomla! 2.5
+ * EBR - Easybook Reloaded for Joomla! 3
  * License: GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * Author: Viktor Vogel
  * Projectsite: http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded
@@ -24,13 +24,21 @@ jimport('joomla.application.component.helper');
 
 class EasybookReloadedHelperRoute
 {
-    function getEasybookReloadedRoute($id, $Itemid)
+    /**
+     * Creates correct URL to the entry
+     *
+     * @param int $id
+     * @return string
+     */
+    static function getEasybookReloadedRoute($id)
     {
-        $limit = EasybookReloadedHelperRoute::_limitstart($id);
-        $link = 'index.php?option=com_easybookreloaded&view=easybookreloaded';
-        $link .= '&Itemid='.$Itemid;
+        $item_id = EasybookReloadedHelperRoute::getItemId();
+        $limit = EasybookReloadedHelperRoute::getLimitstart($id);
 
-        if($limit != 0)
+        $link = 'index.php?option=com_easybookreloaded&view=easybookreloaded';
+        $link .= '&Itemid='.$item_id;
+
+        if(!empty($limit))
         {
             $link .= '&limitstart='.$limit;
         }
@@ -40,56 +48,77 @@ class EasybookReloadedHelperRoute
         return $link;
     }
 
-    function getEasybookReloadedRouteHashPublish($Itemid)
+    /**
+     * Creates correct URL with the task for the hash link in the notification mail
+     *
+     * @param string $task
+     * @return string
+     */
+    static function getEasybookReloadedRouteHash($task)
     {
-        $link = 'index.php?option=com_easybookreloaded&task=publish_mail';
-        $link .= '&Itemid='.$Itemid;
+        $item_id = EasybookReloadedHelperRoute::getItemId();
+
+        $link = 'index.php?option=com_easybookreloaded&task=';
+
+        // Add the task to the URL
+        $link .= $task;
+
+        // Add the Item ID to the URL
+        $link .= '&Itemid='.$item_id;
         $link .= '&hash=';
 
         return $link;
     }
 
-    function getEasybookReloadedRouteHashDelete($Itemid)
-    {
-        $link = 'index.php?option=com_easybookreloaded&task=remove_mail';
-        $link .= '&Itemid='.$Itemid;
-        $link .= '&hash=';
-
-        return $link;
-    }
-
-    function getEasybookReloadedRouteHashComment($Itemid)
-    {
-        $link = 'index.php?option=com_easybookreloaded&task=comment_mail';
-        $link .= '&Itemid='.$Itemid;
-        $link .= '&hash=';
-
-        return $link;
-    }
-
-    function getEasybookReloadedRouteHashEdit($Itemid)
-    {
-        $link = 'index.php?option=com_easybookreloaded&task=edit_mail';
-        $link .= '&Itemid='.$Itemid;
-        $link .= '&hash=';
-
-        return $link;
-    }
-
-    function _limitstart($id)
+    /**
+     * Gets limitstart to set the correct page with the entry
+     *
+     * @param int $id
+     * @return int
+     */
+    static function getLimitstart($id)
     {
         $params = JComponentHelper::getParams('com_easybookreloaded');
-        $entries_per_page = $params->get('entries_perpage', 5);
+        $entries_per_page = (int)$params->get('entries_perpage', 5);
+        $order = $params->get('entries_order', 'DESC');
 
         $db = JFactory::getDBO();
-        $query = "SELECT * FROM ".$db->nameQuote('#__easybook')." WHERE ".$db->nameQuote('published')." = 1 ORDER BY ".$db->nameQuote('id')." DESC";
+        $query = "SELECT * FROM ".$db->quoteName('#__easybook')." WHERE ".$db->quoteName('published')." = 1 ORDER BY ".$db->quoteName('id')." ".$order;
         $db->setQuery($query);
         $db->query();
-        $result = $db->loadResultArray();
+        $result = $db->loadRowList();
 
-        $key = array_search($id, $result);
+        foreach($result as $key => $value)
+        {
+            if($value[0] == $id)
+            {
+                break;
+            }
+        }
+
         $limit = $entries_per_page * intval($key / $entries_per_page);
 
-        return $limit;
+        return (int)$limit;
     }
+
+    /**
+     * Gets the Item ID of the component - the Item ID is the ID from the menu entry
+     *
+     * @return int The Item ID of the menu entry of the component
+     */
+    static function getItemId()
+    {
+        $db = JFactory::getDBO();
+        $query = "SELECT ".$db->quoteName('id')." FROM ".$db->quoteName('#__menu')." WHERE ".$db->quoteName('link')." = 'index.php?option=com_easybookreloaded&view=easybookreloaded' AND ".$db->quoteName('published')." = 1";
+        $db->setQuery($query);
+        $item_id = $db->loadResult();
+
+        if(empty($item_id))
+        {
+            $item_id = '';
+        }
+
+        return (int)$item_id;
+    }
+
 }

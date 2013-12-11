@@ -44,4 +44,5 @@ class EasybookReloadedViewAbout extends JView
 
         parent::display($tpl);
     }
+
 }

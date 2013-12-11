@@ -24,7 +24,7 @@ jimport('joomla.application.component.helper');
 
 class EasybookReloadedHelperContent
 {
-    function parse($message)
+    static function parse($message)
     {
         $mainframe = JFactory::getApplication();
         $ebconfig = $mainframe->getParams();
@@ -50,7 +50,7 @@ class EasybookReloadedHelperContent
         return $message;
     }
 
-    function wordwrap(&$message, $ebconfig)
+    static function wordwrap(&$message, $ebconfig)
     {
         $size = $ebconfig->get('maxlength', 75);
         $words = explode(" ", $message);
@@ -68,7 +68,7 @@ class EasybookReloadedHelperContent
         }
     }
 
-    function convertBbCode(&$message, $ebconfig)
+    static function convertBbCode(&$message, $ebconfig)
     {
         $message = preg_replace("#\[quote\](.*?)\[/quote]#si", "<strong>Quote:</strong><hr /><blockquote>\\1</blockquote><hr />", $message);
         $message = preg_replace("#\[b\](.*?)\[/b\]#si", "<strong>\\1</strong>", $message);
@@ -148,7 +148,7 @@ class EasybookReloadedHelperContent
         }
     }
 
-    function replaceSmilies(&$message, $ebconfig)
+    static function replaceSmilies(&$message, $ebconfig)
     {
         $smiley = EasybookReloadedHelperSmilie::getSmilies();
 
@@ -183,7 +183,7 @@ class EasybookReloadedHelperContent
         }
     }
 
-    function geshi_replacer(&$matches)
+    static function geshi_replacer(&$matches)
     {
         require_once(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'geshi'.DS.'geshi'.DS.'geshi.php');
 

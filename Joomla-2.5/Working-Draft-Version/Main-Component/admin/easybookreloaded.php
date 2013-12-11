@@ -20,7 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die('Restricted access');
-define('_EASYBOOK_VERSION', '2.5-3');
+define('_EASYBOOK_VERSION', '2.5-6');
 
 require_once( JPATH_COMPONENT.DS.'controller.php' );
 

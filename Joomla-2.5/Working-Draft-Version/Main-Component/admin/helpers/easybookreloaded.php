@@ -30,4 +30,5 @@ class EasybookReloadedHelper
         JSubMenuHelper::addEntry(JText::_('COM_EASYBOOKRELOADED_SUBMENU_BADWORDFILTER'), 'index.php?option=com_easybookreloaded&amp;controller=badwords', $vName == 'badwords');
         JSubMenuHelper::addEntry(JText::_('COM_EASYBOOKRELOADED_SUBMENU_ABOUT'), 'index.php?option=com_easybookreloaded&amp;task=about', $vName == 'about');
     }
+
 }

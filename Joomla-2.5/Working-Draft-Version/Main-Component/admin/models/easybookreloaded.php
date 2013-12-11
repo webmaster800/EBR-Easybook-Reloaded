@@ -93,4 +93,5 @@ class EasybookReloadedModelEasybookReloaded extends JModel
 
         return $this->_version;
     }
+
 }

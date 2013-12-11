@@ -82,7 +82,7 @@ class EasybookReloadedControllerBadwords extends JController
         $this->setRedirect('index.php?option=com_easybookreloaded&controller=badwords', $msg, 'notice');
     }
 
-    function display()
+    function display($cachable = false, $urlparams = false)
     {
         JRequest::setVar('view', 'badwords');
 
@@ -92,4 +92,5 @@ class EasybookReloadedControllerBadwords extends JController
 
         parent::display();
     }
+
 }

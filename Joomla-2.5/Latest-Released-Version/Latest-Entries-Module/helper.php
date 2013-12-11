@@ -3,8 +3,8 @@
  *  @Copyright
  *  @package    Easybook Reloaded - Latest Entries Module Joomla 2.5 - Module
  *  @author     Viktor Vogel {@link http://www.kubik-rubik.de}
- *  @version    2.5-1
- *  @date       Created on 27-Apr-2012
+ *  @version    2.5-2
+ *  @date       Created on 18-Aug-2012
  *  @link       Project Site {@link http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded}
  *
  *  @license GNU/GPL
@@ -25,10 +25,28 @@ defined('_JEXEC') or die('Restricted access');
 
 class mod_ebrlatestentriesHelper extends JObject
 {
+
     function getPosts($params)
     {
         $limit = intval($params->get('count'));
         $db = JFactory::getDBO();
+
+        $ids = array_map('trim', explode(',', $params->get('ids')));
+
+        if(!empty($ids[0]))
+        {
+            $entries = array();
+
+            foreach($ids as $id)
+            {
+                $query = 'SELECT * FROM '.$db->nameQuote('#__easybook').' WHERE '.$db->nameQuote('published').' = 1 AND '.$db->nameQuote('id').' = '.$id.' ORDER BY '.$db->nameQuote('gbdate').' DESC';
+                ;
+                $db->setQuery($query);
+                $custom_entry = $db->loadAssocList();
+
+                $entries = array_merge($entries, $custom_entry);
+            }
+        }
 
         if($params->get('random'))
         {
@@ -36,7 +54,7 @@ class mod_ebrlatestentriesHelper extends JObject
         }
         else
         {
-          $query = 'SELECT * FROM '.$db->nameQuote('#__easybook').' WHERE '.$db->nameQuote('published').' = 1 ORDER BY '.$db->nameQuote('gbdate').' DESC LIMIT 0, '.$limit.'';
+            $query = 'SELECT * FROM '.$db->nameQuote('#__easybook').' WHERE '.$db->nameQuote('published').' = 1 ORDER BY '.$db->nameQuote('gbdate').' DESC LIMIT 0, '.$limit.'';
         }
 
         $db->setQuery($query);
@@ -57,7 +75,13 @@ class mod_ebrlatestentriesHelper extends JObject
             JError::raiseWarning(500, $db->stderr());
         }
 
+        if(!empty($entries))
+        {
+            $result = array_merge($entries, $result);
+        }
+
         $result = array($result, $Itemid);
+
         return $result;
     }
 
@@ -167,4 +191,5 @@ class mod_ebrlatestentriesHelper extends JObject
             $post['entrylink'] = JRoute::_(EasybookReloadedHelperRoute::getEasybookReloadedRoute($post['id'], $Itemid));
         }
     }
+
 }

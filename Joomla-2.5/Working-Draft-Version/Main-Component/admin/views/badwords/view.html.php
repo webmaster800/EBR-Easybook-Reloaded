@@ -35,11 +35,10 @@ class EasybookReloadedViewBadwords extends JView
         $items = $this->get('Data');
         $pagination = $this->get('Pagination');
 
-        $this->assign('version', '<p><a href="http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded" target="_blank" title="Easybook Reloaded">Easybook Reloaded - Version '._EASYBOOK_VERSION.'</a></strong>');
-
         $this->assignRef('pagination', $pagination);
         $this->assignRef('items', $items);
 
         parent::display($tpl);
     }
+
 }

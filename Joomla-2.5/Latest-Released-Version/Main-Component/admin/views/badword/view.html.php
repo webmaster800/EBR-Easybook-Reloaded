@@ -44,10 +44,9 @@ class EasybookReloadedViewBadword extends JView
             JToolBarHelper::cancel('cancel', 'Close');
         }
 
-        $this->assign('version', '<p><a href="http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded" target="_blank" title="Easybook Reloaded">Easybook Reloaded - Version '._EASYBOOK_VERSION.'</a></strong>');
-
         $this->assignRef('badword', $word);
 
         parent::display($tpl);
     }
+
 }

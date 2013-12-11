@@ -3,8 +3,8 @@
  *  @Copyright
  *  @package    Easybook Reloaded - Search Plugin Joomla! 2.5
  *  @author     Viktor Vogel {@link http://www.kubik-rubik.de}
- *  @version    2.5-1
- *  @date       Created on 16-Jul-2012
+ *  @version    2.5-2
+ *  @date       Created on 18-Aug-2012
  *  @link       Project Site {@link http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded}
  *
  *  @license GNU/GPL

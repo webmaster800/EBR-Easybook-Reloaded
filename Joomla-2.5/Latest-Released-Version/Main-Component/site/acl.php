@@ -40,7 +40,7 @@ foreach($usergroup as $value)
             $canAdd = true;
         }
     }
-    
+
     foreach($admin_acl_array as $admin_acl_value)
     {
         if($value == $admin_acl_value)

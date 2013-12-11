@@ -32,7 +32,7 @@ class EasybookReloadedModelEntry extends JModel
         parent::__construct();
 
         $array = JRequest::getVar('cid', 0, '', 'array');
-        $this->setId((int) $array[0]);
+        $this->setId((int)$array[0]);
     }
 
     function setId($id)
@@ -124,4 +124,5 @@ class EasybookReloadedModelEntry extends JModel
 
         return true;
     }
+
 }

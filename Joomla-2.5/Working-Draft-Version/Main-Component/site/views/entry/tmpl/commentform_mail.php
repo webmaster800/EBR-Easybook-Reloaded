@@ -274,7 +274,8 @@ $hashrequest = JRequest::getString('hash');
             <input type="hidden" name='task' value='savecomment_mail'/>
             <input type='hidden' name='id' value='<?php echo $this->entry->id; ?>' />
             <input type='hidden' name='hash' value='<?php echo $hashrequest; ?>' />
-
+            <?php echo JHTML::_('form.token'); ?>
+            
             <table align='center' width='90%' cellpadding='0' cellspacing='4' border='0' >
             <?php
             // Switch for BB Code support

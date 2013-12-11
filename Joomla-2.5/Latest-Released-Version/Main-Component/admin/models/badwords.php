@@ -80,4 +80,5 @@ class EasybookReloadedModelBadwords extends JModel
 
         return $this->_total;
     }
+
 }

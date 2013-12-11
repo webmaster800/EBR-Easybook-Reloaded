@@ -43,7 +43,7 @@ class JFormFieldACL extends JFormFieldList
 
         if($id = $this->form->getValue('id'))
         {
-            $query->join('LEFT', '`#__usergroups` AS p ON p.id = '.(int) $id);
+            $query->join('LEFT', '`#__usergroups` AS p ON p.id = '.(int)$id);
             $query->where('NOT(a.lft >= p.lft AND a.rgt <= p.rgt)');
         }
 
@@ -76,5 +76,7 @@ class JFormFieldACL extends JFormFieldList
 
         return $options;
     }
+
 }
+
 ?>

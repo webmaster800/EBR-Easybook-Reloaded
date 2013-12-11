@@ -14,7 +14,7 @@ div.easy_pagination li {display: inline !important; padding: 0 5px !important;}
 .easy_contact {margin-left: 10px; text-align:left; margin-right: 10px; margin-top: 8px; padding: 5px; padding-bottom: 10px; background-color:#fafafa; border-right: #ededed solid 5px; border-left: #ededed solid 5px; position:relative; background-image: url(../images/entry_bg.gif); background-position:bottom; background-repeat:repeat-x;}
 .easy_content {margin-left: 10px; text-align:left; margin-right: 10px; margin-top: 8px; padding: 10px; padding-bottom: 15px; margin-bottom: 8px; background-color:#fafafa; border-right: #ededed solid 5px; border-left: #ededed solid 5px; background-image: url(../images/entry_bg.gif); background-position:bottom; background-repeat:repeat-x;}
 .easy_title {margin-left: 10px; text-align:left; margin-right: 10px; margin-top: 8px; padding: 10px; padding-bottom: 15px; margin-bottom: 8px; background-color:#fafafa; border-right: #ededed solid 5px; border-left: #ededed solid 5px; background-image: url(../images/entry_bg.gif); background-position:bottom; background-repeat:repeat-x; font-size: 130%; font-weight: bold;}
-.easy_intro {}
+.easy_intro {margin: 20px 0;}
 .easy_entrylink{padding-top: 10px;}
 .easy_center{text-align: center;}
 #easybook {}

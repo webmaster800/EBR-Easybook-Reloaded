@@ -56,6 +56,9 @@ class EasybookReloadedViewEntry extends JView
 
         if($params->get('show_rating'))
         {
+            JHtml::_('behavior.framework');
+            $document->addScript('components/com_easybookreloaded/scripts/moostarrating.js', 'text/javascript');
+
             if($params->get('show_rating_type') == 0)
             {
                 $document->addCustomTag('
@@ -121,4 +124,5 @@ class EasybookReloadedViewEntry extends JView
 
         parent::display($tpl);
     }
+
 }
