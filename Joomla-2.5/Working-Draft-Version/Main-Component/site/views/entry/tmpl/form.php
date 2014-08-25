@@ -28,7 +28,7 @@ defined('_JEXEC') or die('Restricted access');
     <?php endif; ?>
     <div class="easy_entrylink">
         <strong>
-            <a class="view" href="<?php echo JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded'); ?>" style="text-decoration: none !important;"><?php echo JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK'); ?><?php echo JHTML::_('image', 'components/com_easybookreloaded/images/book.png', JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK').":", 'height="16" border="0" width="16" class="png" style="vertical-align: middle; padding-left: 3px;"'); ?></a>
+            <a class="view" href="<?php echo JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$this->_gbid); ?>" style="text-decoration: none !important;"><?php echo JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK'); ?><?php echo JHTML::_('image', 'components/com_easybookreloaded/images/book.png', JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK').":", 'height="16" border="0" width="16" class="png" style="vertical-align: middle; padding-left: 3px;"'); ?></a>
         </strong>
         <script type="text/javascript">
             function x()
@@ -515,6 +515,7 @@ defined('_JEXEC') or die('Restricted access');
             <input type="hidden" name="option" value="com_easybookreloaded" />
             <input type="hidden" name="task" value="save" />
             <input type="hidden" name="controller" value="entry" />
+            <input type="hidden" name="gbid" value="<?php echo $this->_gbid; ?>" />
             <?php echo JHTML::_('form.token'); ?>
             <?php if($this->user->guest == 0 AND !_EASYBOOK_CANEDIT) : ?>
                 <input type="hidden" name="gbname" value="<?php echo $this->entry->gbname; ?>" />

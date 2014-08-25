@@ -22,7 +22,7 @@ div.easy_pagination li {display: inline !important;}
 #easyfooterinv {margin-top: 10px;font-size: 90%;text-align: center; display: none;}
 #easybook span.pagination {text-align:center; display: block;}
 #easybook h2 {margin: 0;}
-#easybook p.clr {clear: none;}
+#easybook p.clr {clear: both;}
 #easybook dl {margin: 0;padding: 0;padding-top: 5px;padding-bottom: 5px;}
 #easybook p.date {margin: 0;padding: 0;border-bottom: 1px solid #5F5F5F;}
 #easybook p.rate {float: right;margin: 0;padding: 0;margin-right: 10px;}

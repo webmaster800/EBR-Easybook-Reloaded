@@ -34,7 +34,7 @@ class EasybookReloadedViewEntry extends JView
         $isNew = ($entry->id < 1);
 
         $text = $isNew ? JText::_('COM_EASYBOOKRELOADED_NEWENTRY') : JText::_('COM_EASYBOOKRELOADED_EDITENTRY');
-        JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_ENTRY').': <small><small>['.$text.']</small></small>', 'easybookreloaded');
+        JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_EASYBOOKRELOADED').' - '.$text, 'easybookreloaded');
         JToolBarHelper::save();
 
         if($isNew)
@@ -55,8 +55,12 @@ class EasybookReloadedViewEntry extends JView
         $date->setOffset($offset);
         $entry->gbdate = $date->toFormat();
 
+        // Get Guestbooks for selection list
+        $guestbooks = $this->get('Data', 'gb');
+
         $this->assignRef('entry', $entry);
+        $this->assignRef('guestbooks', $guestbooks);
+
         parent::display($tpl);
     }
-
 }

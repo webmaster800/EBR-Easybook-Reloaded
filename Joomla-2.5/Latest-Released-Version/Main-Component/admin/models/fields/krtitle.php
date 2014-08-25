@@ -7,7 +7,7 @@
  * @date        Created on 2013-06-15
  * @link        Project Site {@link http://joomla-extensions.kubik-rubik.de}
  *
- * @license GNU/GPL
+ * @license     GNU/GPL
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -58,5 +58,4 @@ class JFormFieldKRTitle extends JFormField
 
         return $label;
     }
-
 }

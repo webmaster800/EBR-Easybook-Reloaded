@@ -46,5 +46,4 @@ class TableEntry extends JTable
     {
         parent::__construct('#__easybook', 'id', $db);
     }
-
 }

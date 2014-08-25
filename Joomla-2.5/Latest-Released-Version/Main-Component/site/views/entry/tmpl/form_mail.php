@@ -30,7 +30,7 @@ $hashrequest = JRequest::getString('hash');
         <h2 class="componentheading"><?php echo $this->heading ?></h2>
 <?php } ?>
     <div class="easy_entrylink">
-        <strong><a class="view" href="<?php echo JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded'); ?>" style="text-decoration: none !important;"><?php echo JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK'); ?><?php echo JHTML::_('image', 'components/com_easybookreloaded/images/book.png', JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK').":", 'height="16" border="0" width="16" class="png" style="vertical-align: middle; padding-left: 3px;"'); ?></a></strong>
+        <strong><a class="view" href="<?php echo JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$this->_gbid); ?>" style="text-decoration: none !important;"><?php echo JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK'); ?><?php echo JHTML::_('image', 'components/com_easybookreloaded/images/book.png', JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK').":", 'height="16" border="0" width="16" class="png" style="vertical-align: middle; padding-left: 3px;"'); ?></a></strong>
         <br />
         <br />
         <script type="text/javascript">
@@ -274,6 +274,7 @@ $hashrequest = JRequest::getString('hash');
         <form name='gbookForm' action='<?php JRoute::_('index.php'); ?>' target='_top' method='post'>
             <input type='hidden' name='option' value='com_easybookreloaded' />
             <input type='hidden' name='task' value='save_mail' />
+            <input type="hidden" name="gbid" value="<?php echo $this->_gbid; ?>" />
             <?php echo JHTML::_('form.token'); ?>
             <?php if($this->entry->id) : ?>
                 <input type='hidden' name='id' value='<?php echo $this->entry->id; ?>' />

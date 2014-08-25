@@ -20,45 +20,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die('Restricted access');
-jimport('joomla.application.component.helper');
 
-class EasybookReloadedHelperVersion extends JObject
+class JFormFieldEbrGb extends JFormField
 {
-    /* TODO
-    var $_current;
+    protected $type = 'EbrGb';
 
-    function __construct()
+    protected function getInput()
     {
-    $this->_loadVersion();
-    }
+        $db = JFactory::getDBO();
 
-    function _loadVersion()
-    {
-    require_once( JPATH_COMPONENT.DS.'libraries'.DS.'httpclient.class.php' );
-    $client = new HttpClient('joomla-extensions.kubik-rubik.de');
+        $query = "SELECT ".$db->nameQuote('a.title')." AS ".$db->nameQuote('title').", ".$db->nameQuote('a.id')." AS ".$db->nameQuote('gbid')." FROM ".$db->nameQuote('#__easybook_gb')." AS ".$db->nameQuote('a')." ORDER BY ".$db->nameQuote('a.id')." ASC";
 
-    if (!$client->get('/')) {
-    $this->setError($client->getError());
-    return false;
-    }
+        $db->setQuery($query);
+        $guestbooks = $db->loadObjectList();
 
-    $this->_current = $client->getContent();
-    return true;
-    }
+        array_unshift($guestbooks, JHTML::_('select.option', '', '- '.JText::_('COM_EASYBOOKRELOADED_SELECT_GUESTBOOK').' -', 'gbid', 'title'));
 
-    function checkVersion($version)
-    {
-    if ($version == $this->_current) {
-    return 1;
-    } elseif($this->getErrors()) {
-    return -2;
-    } else {
-    return -1;
+        return JHTML::_('select.genericlist', $guestbooks, $this->name, 'class="inputbox required"', 'gbid', 'title', $this->value, $this->id);
     }
-    }
-
-    function getVersion()
-    {
-    return $this->_current;
-    } */
 }

@@ -2,13 +2,14 @@
 <extension type="component" version="2.5" method="upgrade">
     <name>com_easybookreloaded</name>
     <author>Viktor Vogel</author>
-    <creationDate>2013-07-29</creationDate>
-    <copyright>Copyright 2013 Viktor Vogel - All rights reserved</copyright>
+    <creationDate>2014-08-25</creationDate>
+    <copyright>Copyright 2014 Viktor Vogel - All rights reserved</copyright>
     <license>Released under GNU/GPL</license>
     <authorEmail>admin@kubik-rubik.de</authorEmail>
     <authorUrl>http://joomla-extensions.kubik-rubik.de</authorUrl>
-    <version>2.5-6</version>
+    <version>2.5-7</version>
     <description>COM_EASYBOOKRELOADED_XML_DESCRIPTION</description>
+    <scriptfile>script.php</scriptfile>
     <install>
         <sql>
             <file driver="mysql" charset="utf8">sql/install.sql</file>
@@ -41,6 +42,7 @@
         <menu img="components/com_easybookreloaded/images/easybook_ico.png">COM_EASYBOOKRELOADED</menu>
         <submenu>
             <menu img="components/com_easybookreloaded/images/easybook_edit.png" link="option=com_easybookreloaded">COM_EASYBOOKRELOADED_MANAGE_ENTRIES</menu>
+            <menu img="components/com_easybookreloaded/images/easybook_edit.png" link="option=com_easybookreloaded&amp;task=gb">COM_EASYBOOKRELOADED_MANAGE_GB</menu>
             <menu img="components/com_easybookreloaded/images/easybook_config.png" link="option=com_easybookreloaded&amp;task=config">COM_EASYBOOKRELOADED_CONFIG</menu>
             <menu img="components/com_easybookreloaded/images/easybook_unhappy.png" link="option=com_easybookreloaded&amp;controller=badwords">COM_EASYBOOKRELOADED_BADWORDFILTER</menu>
             <menu img="components/com_easybookreloaded/images/easybook_info.png" link="option=com_easybookreloaded&amp;task=about">COM_EASYBOOKRELOADED_ABOUT</menu>

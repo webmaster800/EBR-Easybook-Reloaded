@@ -26,13 +26,15 @@ class EasybookReloadedViewEasybookReloaded extends JView
 {
     function display($tpl = null)
     {
-        $mainframe = JFactory::getApplication();
-        $document = JFactory::getDocument();
-        $document->link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded');
-        JRequest::setVar('limit', $mainframe->getCfg('feed_limit'));
-
         // Get some data from the model
         $items = $this->get('Data');
+        $gb_data = $this->get('GBData');
+
+        $mainframe = JFactory::getApplication();
+        $document = JFactory::getDocument();
+        $document->link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gb_data->id);
+        JRequest::setVar('limit', $mainframe->getCfg('feed_limit'));
+
 
         foreach($items as $item)
         {
@@ -41,7 +43,7 @@ class EasybookReloadedViewEasybookReloaded extends JView
             $title = html_entity_decode($title);
 
             // url link to article
-            $link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded#gbentry_'.$item->id);
+            $link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gb_data->id.'#gbentry_'.$item->id);
 
             // strip html from feed item description text
             $description = $item->gbtext;

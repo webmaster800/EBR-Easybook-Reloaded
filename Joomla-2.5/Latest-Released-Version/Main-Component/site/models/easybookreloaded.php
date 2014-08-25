@@ -27,6 +27,16 @@ class EasybookReloadedModelEasybookReloaded extends JModel
     var $_data;
     var $_total;
     var $_pagination;
+    var $_gbid;
+
+    function __construct()
+    {
+        parent::__construct();
+
+        // Get guestbook ID - since 2.5-7
+        $this->_gbid = JRequest::getInt('gbid', false);
+        JFactory::getSession()->set('gbid', $this->_gbid, 'easybookreloaded');
+    }
 
     function _buildQuery()
     {
@@ -37,11 +47,11 @@ class EasybookReloadedModelEasybookReloaded extends JModel
 
         if(_EASYBOOK_CANEDIT)
         {
-            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." ORDER BY ".$this->_db->nameQuote('gbdate')." ".$order." LIMIT ".$start.", ".$limit;
+            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." WHERE ".$this->_db->nameQuote('gbid')." = ".$this->_gbid." ORDER BY ".$this->_db->nameQuote('gbdate')." ".$order." LIMIT ".$start.", ".$limit;
         }
         else
         {
-            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." WHERE ".$this->_db->nameQuote('published')." = 1 ORDER BY ".$this->_db->nameQuote('gbdate')." ".$order." LIMIT ".$start.", ".$limit;
+            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." WHERE ".$this->_db->nameQuote('gbid')." = ".$this->_gbid." AND ".$this->_db->nameQuote('published')." = 1 ORDER BY ".$this->_db->nameQuote('gbdate')." ".$order." LIMIT ".$start.", ".$limit;
         }
 
         return $query;
@@ -51,11 +61,11 @@ class EasybookReloadedModelEasybookReloaded extends JModel
     {
         if(_EASYBOOK_CANEDIT)
         {
-            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook');
+            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." WHERE ".$this->_db->nameQuote('gbid')." = ".$this->_gbid;
         }
         else
         {
-            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." WHERE ".$this->_db->nameQuote('published')." = 1";
+            $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." WHERE ".$this->_db->nameQuote('gbid')." = ".$this->_gbid." AND ".$this->_db->nameQuote('published')." = 1";
         }
 
         return $query;
@@ -70,6 +80,18 @@ class EasybookReloadedModelEasybookReloaded extends JModel
         }
 
         return $this->_data;
+    }
+
+    function getGBData()
+    {
+        $gb_data = $this->_getList("SELECT * FROM ".$this->_db->nameQuote('#__easybook_gb')." WHERE ".$this->_db->nameQuote('id')." = ".$this->_gbid);
+
+        if(!empty($gb_data))
+        {
+            $gb_data = $gb_data[0];
+        }
+
+        return $gb_data;
     }
 
     function getPagination()
@@ -96,4 +118,11 @@ class EasybookReloadedModelEasybookReloaded extends JModel
         return $this->_total;
     }
 
+    function getGbid()
+    {
+        if(!empty($this->_gbid) AND is_numeric($this->_gbid))
+        {
+            return $this->_gbid;
+        }
+    }
 }

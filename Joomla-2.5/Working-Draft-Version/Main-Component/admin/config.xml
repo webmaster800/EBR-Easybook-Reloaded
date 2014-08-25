@@ -2,16 +2,16 @@
 <config>
     <fields addfieldpath="/administrator/components/com_easybookreloaded/models/fields">
         <fieldset name="component">
-            <field type="krdonationcodecheck" />
-            <field type="krversioncheck" name="krversioncheck" default="ebr|2.5-6" />
-            <field name="spacer_rights" type="krtitle" label="COM_EASYBOOKRELOADED_RIGHTS" />
+            <field type="krdonationcodecheck"/>
+            <field type="krversioncheck" name="krversioncheck" default="ebr|2.5-7"/>
+            <field name="spacer_rights" type="krtitle" label="COM_EASYBOOKRELOADED_RIGHTS"/>
             <field name="offline" type="list" default="0" label="COM_EASYBOOKRELOADED_GUESTBOOK_OFFLINE" description="COM_EASYBOOKRELOADED_GUESTBOOK_OFFLINE_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="add_acl" type="acl" multiple="true" size="8" default="1" label="COM_EASYBOOKRELOADED_ADD_ACL" description="COM_EASYBOOKRELOADED_ADD_ACL_DESC" />
-            <field name="admin_acl" type="acl" multiple="true" size="8" default="8" label="COM_EASYBOOKRELOADED_ADMIN_ACL" description="COM_EASYBOOKRELOADED_ADMIN_ACL_DESC" />
-            <field name="spacer_configuration" type="krtitle" label="COM_EASYBOOKRELOADED_CONFIGURATION" />
+            <field name="add_acl" type="acl" multiple="true" size="8" default="1" label="COM_EASYBOOKRELOADED_ADD_ACL" description="COM_EASYBOOKRELOADED_ADD_ACL_DESC"/>
+            <field name="admin_acl" type="acl" multiple="true" size="8" default="8" label="COM_EASYBOOKRELOADED_ADMIN_ACL" description="COM_EASYBOOKRELOADED_ADMIN_ACL_DESC"/>
+            <field name="spacer_configuration" type="krtitle" label="COM_EASYBOOKRELOADED_CONFIGURATION"/>
             <field name="default_published" type="list" default="1" label="COM_EASYBOOKRELOADED_PUBLISH_NEW_ENTRIES" description="COM_EASYBOOKRELOADED_PUBLISH_NEW_ENTRIES_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
@@ -24,10 +24,10 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="emailfornotification_usergroup" type="acl" multiple="true" size="8" default="8" label="COM_EASYBOOKRELOADED_EMAILNOTIFICATION_GROUPS" description="COM_EASYBOOKRELOADED_EMAILNOTIFICATION_GROUPS_DESC" />
-            <field name="emailfornotification" type="text" size="60" default="" label="COM_EASYBOOKRELOADED_EMAIL_FOR_NOTIFICATION" description="COM_EASYBOOKRELOADED_EMAIL_FOR_NOTIFICATION_DESC" />
-            <field name="secret_word" type="text" size="20" default="" label="COM_EASYBOOKRELOADED_SECRET_WORD" description="COM_EASYBOOKRELOADED_SECRET_WORD_DESC" />
-            <field name="valid_time_emailnot" type="text" size="5" default="1" label="COM_EASYBOOKRELOADED_VALID_TIME_FOR_NOTIFICATION" description="COM_EASYBOOKRELOADED_VALID_TIME_FOR_NOTIFICATION_DESC" />
+            <field name="emailfornotification_usergroup" type="acl" multiple="true" size="8" default="8" label="COM_EASYBOOKRELOADED_EMAILNOTIFICATION_GROUPS" description="COM_EASYBOOKRELOADED_EMAILNOTIFICATION_GROUPS_DESC"/>
+            <field name="emailfornotification" type="text" size="60" default="" label="COM_EASYBOOKRELOADED_EMAIL_FOR_NOTIFICATION" description="COM_EASYBOOKRELOADED_EMAIL_FOR_NOTIFICATION_DESC"/>
+            <field name="secret_word" type="text" size="20" default="" label="COM_EASYBOOKRELOADED_SECRET_WORD" description="COM_EASYBOOKRELOADED_SECRET_WORD_DESC"/>
+            <field name="valid_time_emailnot" type="text" size="5" default="1" label="COM_EASYBOOKRELOADED_VALID_TIME_FOR_NOTIFICATION" description="COM_EASYBOOKRELOADED_VALID_TIME_FOR_NOTIFICATION_DESC"/>
             <field name="badwordfilter" type="list" default="1" label="COM_EASYBOOKRELOADED_BADWORDFILTER" description="COM_EASYBOOKRELOADED_BADWORDFILTER_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
@@ -36,7 +36,7 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="entries_perpage" type="text" size="3" default="10" label="COM_EASYBOOKRELOADED_ENTRIES_PER_PAGE" description="COM_EASYBOOKRELOADED_ENTRIES_PER_PAGE_DESC" />
+            <field name="entries_perpage" type="text" size="3" default="10" label="COM_EASYBOOKRELOADED_ENTRIES_PER_PAGE" description="COM_EASYBOOKRELOADED_ENTRIES_PER_PAGE_DESC"/>
             <field name="entries_order" type="list" default="DESC" label="COM_EASYBOOKRELOADED_ENTRIES_ORDER" description="COM_EASYBOOKRELOADED_ENTRIES_ORDER_DESC">
                 <option value="DESC">COM_EASYBOOKRELOADED_NEW_ENTRIES_FIRST</option>
                 <option value="ASC">COM_EASYBOOKRELOADED_NEW_ENTRIES_LAST</option>
@@ -49,9 +49,10 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
                 <option value="2">COM_EASYBOOKRELOADED_JYESLANGUAGEFILE</option>
+                <option value="3">COM_EASYBOOKRELOADED_INTROTEXT_GUESTBOOK</option>
             </field>
-            <field name="introtext" type="textarea" value="" rows="5" cols="40" filter="raw" label="COM_EASYBOOKRELOADED_INTROTEXT" description="COM_EASYBOOKRELOADED_INTROTEXT_DESC" />
-            <field name="admin_name" type="text" default="" label="COM_EASYBOOKRELOADED_ADMIN_NAME" description="COM_EASYBOOKRELOADED_ADMIN_NAME_DESC" />
+            <field name="introtext" type="textarea" value="" rows="5" cols="40" filter="raw" label="COM_EASYBOOKRELOADED_INTROTEXT" description="COM_EASYBOOKRELOADED_INTROTEXT_DESC"/>
+            <field name="admin_name" type="text" default="" label="COM_EASYBOOKRELOADED_ADMIN_NAME" description="COM_EASYBOOKRELOADED_ADMIN_NAME_DESC"/>
             <field name="support_bbcode" type="list" default="1" label="COM_EASYBOOKRELOADED_ALLOW_BBCODE" description="COM_EASYBOOKRELOADED_ALLOW_BBCODE_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
@@ -92,7 +93,7 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="maxlength" type="text" size="4" default="75" label="COM_EASYBOOKRELOADED_AUTOMATIC_WORD_WRAP_AFTER" description="COM_EASYBOOKRELOADED_AUTOMATIC_WORD_WRAP_AFTER_DESC" />
+            <field name="maxlength" type="text" size="4" default="75" label="COM_EASYBOOKRELOADED_AUTOMATIC_WORD_WRAP_AFTER" description="COM_EASYBOOKRELOADED_AUTOMATIC_WORD_WRAP_AFTER_DESC"/>
             <field name="template" type="list" default="0" label="COM_EASYBOOKRELOADED_TEMPLATE" description="COM_EASYBOOKRELOADED_TEMPLATE_DESC">
                 <option value="0">COM_EASYBOOKRELOADED_BRIGHT</option>
                 <option value="1">COM_EASYBOOKRELOADED_DARK</option>
@@ -112,12 +113,12 @@
                 <option value="2">COM_EASYBOOKRELOADED_TEXT</option>
                 <option value="3">COM_EASYBOOKRELOADED_TEXTINV</option>
             </field>
-            <field name="spacer_form" type="krtitle" label="COM_EASYBOOKRELOADED_FORM" />
+            <field name="spacer_form" type="krtitle" label="COM_EASYBOOKRELOADED_FORM"/>
             <field name="show_rating" type="list" default="1" label="COM_EASYBOOKRELOADED_SHOW_RATING" description="COM_EASYBOOKRELOADED_SHOW_RATING_DESC">
                 <option value="0">COM_EASYBOOKRELOADED_HIDE</option>
                 <option value="1">COM_EASYBOOKRELOADED_SHOW</option>
             </field>
-            <field name="rating_max"  type="list" default="5" label="COM_EASYBOOKRELOADED_MAX_RATING" description="COM_EASYBOOKRELOADED_MAX_RATING_DESC">
+            <field name="rating_max" type="list" default="5" label="COM_EASYBOOKRELOADED_MAX_RATING" description="COM_EASYBOOKRELOADED_MAX_RATING_DESC">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -194,34 +195,39 @@
                 <option value="0">COM_EASYBOOKRELOADED_HIDE</option>
                 <option value="1">COM_EASYBOOKRELOADED_SHOW</option>
             </field>
-            <field name="spacer_spam" type="krtitle" label="COM_EASYBOOKRELOADED_SPAM" />
+            <field name="spacer_spam" type="krtitle" label="COM_EASYBOOKRELOADED_SPAM"/>
             <field name="enable_spam" type="list" default="1" label="COM_EASYBOOKRELOADED_ENABLE_EASYCALCCHECK" description="COM_EASYBOOKRELOADED_ENABLE_EASYCALCCHECK_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="max_value" type="text" default="20" label="COM_EASYBOOKRELOADED_MAXIMUM_VALUE_FOR_EVERY_NUMBER" description="COM_EASYBOOKRELOADED_MAXIMUM_VALUE_FOR_EVERY_NUMBER_DESC" />
+            <field name="max_value" type="text" default="20" label="COM_EASYBOOKRELOADED_MAXIMUM_VALUE_FOR_EVERY_NUMBER" description="COM_EASYBOOKRELOADED_MAXIMUM_VALUE_FOR_EVERY_NUMBER_DESC"/>
             <field name="operator" type="list" default="2" label="COM_EASYBOOKRELOADED_CHOOSE_OPERATOR" description="COM_EASYBOOKRELOADED_CHOOSE_OPERATOR_DESC">
                 <option value="0">+</option>
                 <option value="1">-</option>
                 <option value="2">COM_EASYBOOKRELOADED_RANDOM</option>
             </field>
-            <field name="type_time_sec" type="text" default="10" label="COM_EASYBOOKRELOADED_TIME_LOCK" description="COM_EASYBOOKRELOADED_TIME_LOCK_DESC" />
+            <field name="type_time_sec" type="text" default="10" label="COM_EASYBOOKRELOADED_TIME_LOCK" description="COM_EASYBOOKRELOADED_TIME_LOCK_DESC"/>
             <field name="spamcheck_question" type="list" default="0" label="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION" description="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="spamcheck_question_question" type="text" size="60" default="" label="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_QUESTION" description="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_QUESTION_DESC" />
-            <field name="spamcheck_question_answer" type="text" size="60" default="" label="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_ANSWER" description="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_ANSWER_DESC" />
-            <field name="maxnumberlinks" type="text" default="1" label="COM_EASYBOOKRELOADED_MAXIMUM_NUMBER_OF_LINKS" description="COM_EASYBOOKRELOADED_MAXIMUM_NUMBER_OF_LINKS_DESC" />
-            <field name="block_ip" type="textarea" default="" rows="5" cols="40" label="COM_EASYBOOKRELOADED_BLOCK_IP" description="COM_EASYBOOKRELOADED_BLOCK_IP_DESC" />
-            <field name="timelock_ip" type="text" default="60" label="COM_EASYBOOKRELOADED_TIMELOCK_IP" description="COM_EASYBOOKRELOADED_TIMELOCK_IP_DESC" />
+            <field name="spamcheck_question_question" type="text" size="60" default="" label="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_QUESTION" description="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_QUESTION_DESC"/>
+            <field name="spamcheck_question_answer" type="text" size="60" default="" label="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_ANSWER" description="COM_EASYBOOKRELOADED_SPAMCHECK_QUESTION_ANSWER_DESC"/>
+            <field name="maxnumberlinks" type="text" default="1" label="COM_EASYBOOKRELOADED_MAXIMUM_NUMBER_OF_LINKS" description="COM_EASYBOOKRELOADED_MAXIMUM_NUMBER_OF_LINKS_DESC"/>
+            <field name="block_ip" type="textarea" default="" rows="5" cols="40" label="COM_EASYBOOKRELOADED_BLOCK_IP" description="COM_EASYBOOKRELOADED_BLOCK_IP_DESC"/>
+            <field name="timelock_ip" type="text" default="60" label="COM_EASYBOOKRELOADED_TIMELOCK_IP" description="COM_EASYBOOKRELOADED_TIMELOCK_IP_DESC"/>
             <field name="enable_spam_reg" type="list" default="1" label="COM_EASYBOOKRELOADED_ENABLE_EASYCALCCHECK_FOR_REG" description="COM_EASYBOOKRELOADED_ENABLE_EASYCALCCHECK_FOR_REG_DESC">
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
+            <field name="akismet" type="list" default="0" label="COM_EASYBOOKRELOADED_SPAMCHECK_AKISMET" description="COM_EASYBOOKRELOADED_SPAMCHECK_AKISMET_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="akismet_key" type="text" default="" label="COM_EASYBOOKRELOADED_SPAMCHECK_AKISMET_KEY" description="COM_EASYBOOKRELOADED_SPAMCHECK_AKISMET_KEY_DESC"/>
         </fieldset>
         <fieldset name="donation">
-            <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+            <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC"/>
         </fieldset>
         <fieldset name="versioncheck">
             <field name="versioncheck_enable" type="list" default="1" label="KR_VERSION_CHECK" description="KR_VERSION_CHECKDESC">
@@ -231,7 +237,7 @@
             </field>
         </fieldset>
         <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
-            <field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" validate="rules"	filter="rules" component="com_easybookreloaded" section="component" />
+            <field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" validate="rules" filter="rules" component="com_easybookreloaded" section="component"/>
         </fieldset>
     </fields>
 </config>

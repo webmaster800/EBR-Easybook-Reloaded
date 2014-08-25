@@ -34,6 +34,13 @@ function EasybookReloadedBuildRoute(&$query)
     if(isset($query['task']))
     {
         $segments[] = $query['task'];
+
+        // Do add the guestbook ID in certain task
+        if(($query['task'] == 'publish_mail' OR $query['task'] == 'comment_mail' OR $query['task'] == 'edit_mail' OR $query['task'] == 'remove_mail') AND !empty($query['gbid']))
+        {
+            $segments[] = $query['gbid'];
+        }
+
         unset($query['task']);
     }
 
@@ -43,14 +50,21 @@ function EasybookReloadedBuildRoute(&$query)
         unset($query['cid']);
     }
 
+    if(isset($query['gbid']) AND !empty($query['Itemid']))
+    {
+        unset($query['gbid']);
+    }
+
     if(isset($query['view']))
     {
         if(!isset($query['Itemid']))
         {
             $segments[] = $query['view'];
         }
+
         unset($query['view']);
     }
+
     return $segments;
 }
 
@@ -63,53 +77,63 @@ function EasybookReloadedParseRoute($segments)
         switch($segments[1])
         {
             case 'add':
-                {
-                    $vars['controller'] = 'entry';
-                    $vars['task'] = 'add';
-                }
+            {
+                $vars['controller'] = 'entry';
+                $vars['task'] = 'add';
+            }
                 break;
 
             case 'remove':
-                {
-                    $vars['controller'] = 'entry';
-                    $vars['task'] = 'remove';
-                    $vars['cid'] = $segments[2];
-                }
+            {
+                $vars['controller'] = 'entry';
+                $vars['task'] = 'remove';
+                $vars['cid'] = $segments[2];
+            }
                 break;
 
             case 'publish':
-                {
-                    $vars['controller'] = 'entry';
-                    $vars['task'] = 'publish';
-                    $vars['cid'] = $segments[2];
-                }
+            {
+                $vars['controller'] = 'entry';
+                $vars['task'] = 'publish';
+                $vars['cid'] = $segments[2];
+            }
                 break;
 
             case 'unpublish':
-                {
-                    $vars['controller'] = 'entry';
-                    $vars['task'] = 'unpublish';
-                    $vars['cid'] = $segments[2];
-                }
+            {
+                $vars['controller'] = 'entry';
+                $vars['task'] = 'unpublish';
+                $vars['cid'] = $segments[2];
+            }
                 break;
 
             case 'edit':
-                {
-                    $vars['controller'] = 'entry';
-                    $vars['task'] = 'edit';
-                    $vars['cid'] = $segments[2];
-                }
+            {
+                $vars['controller'] = 'entry';
+                $vars['task'] = 'edit';
+                $vars['cid'] = $segments[2];
+            }
                 break;
 
             case 'comment':
-                {
-                    $vars['controller'] = 'entry';
-                    $vars['task'] = 'comment';
-                    $vars['cid'] = $segments[2];
-                }
+            {
+                $vars['controller'] = 'entry';
+                $vars['task'] = 'comment';
+                $vars['cid'] = $segments[2];
+            }
                 break;
         }
-
-        return $vars;
     }
+    elseif($segments[0] == 'comment_mail' OR $segments[0] == 'publish_mail' OR $segments[0] == 'edit_mail' OR $segments[0] == 'remove_mail')
+    {
+        $vars['task'] = $segments[0];
+        $vars['gbid'] = $segments[1];
+    }
+    else
+    {
+        $vars['controller'] = '';
+        $vars['task'] = 'display';
+    }
+
+    return $vars;
 }

@@ -77,7 +77,7 @@ foreach($this->entries as $entry) : ?>
             <div class="easy_contact">
                 <?php if($entry->gbmail != "" AND $this->params->get('show_mail', true) AND $entry->gbmailshow) :
                     $image = JHTML::_('image', 'components/com_easybookreloaded/images/email.png', '', 'height="16" width="16" class="png" hspace="3" border="0"');
-                    echo JHTML::_('email.cloak', $entry->gbmail, true, $image, false);
+                    echo EasybookReloadedHelperContent::cloak( $entry->gbmail, true, $image, false);
                 endif;
                 if($entry->gbpage != "" AND $this->params->get('show_home', true)) :
                     if(substr($entry->gbpage, 0, 7) != "http://") :

@@ -29,7 +29,7 @@ $hashrequest = JRequest::getString('hash');
         <h2 class="componentheading"><?php echo $this->heading ?></h2>
 <?php } ?>
     <div class="easy_entrylink">
-        <strong><a class="view" href="<?php echo JRoute::_('index.php?option=com_easybookreloaded'); ?>" style="text-decoration: none !important;"><?php echo JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK'); ?><?php echo JHTML::_('image', 'components/com_easybookreloaded/images/book.png', JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK').":", 'height="16" border="0" width="16" class="png" style="vertical-align: middle; padding-left: 3px;"'); ?></a></strong>
+        <strong><a class="view" href="<?php echo JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$this->_gbid); ?>" style="text-decoration: none !important;"><?php echo JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK'); ?><?php echo JHTML::_('image', 'components/com_easybookreloaded/images/book.png', JText::_('COM_EASYBOOKRELOADED_READ_GUESTBOOK').":", 'height="16" border="0" width="16" class="png" style="vertical-align: middle; padding-left: 3px;"'); ?></a></strong>
         <br /><br />
         <script type="text/javascript">
             function x()
@@ -269,14 +269,15 @@ $hashrequest = JRequest::getString('hash');
             }
         <?php } ?>
         </script>
-        <form name='gbookForm' action='<?php JRoute::_('index.php'); ?>' target='_top' method='post'>
-            <input type='hidden' name='option' value='com_easybookreloaded' />
-            <input type="hidden" name='task' value='savecomment_mail'/>
-            <input type='hidden' name='id' value='<?php echo $this->entry->id; ?>' />
-            <input type='hidden' name='hash' value='<?php echo $hashrequest; ?>' />
+        <form name="gbookForm" action="<?php JRoute::_('index.php'); ?>" target="_top" method="post">
+            <input type="hidden" name="option" value="com_easybookreloaded" />
+            <input type="hidden" name="task" value="savecomment_mail"/>
+            <input type="hidden" name="id" value="<?php echo $this->entry->id; ?>" />
+            <input type="hidden" name="gbid" value="<?php echo $this->_gbid; ?>" />
+            <input type="hidden" name="hash" value="<?php echo $hashrequest; ?>" />
             <?php echo JHTML::_('form.token'); ?>
-            
-            <table align='center' width='90%' cellpadding='0' cellspacing='4' border='0' >
+
+            <table align="center" width="90%" cellpadding="0" cellspacing="4" border="0" >
             <?php
             // Switch for BB Code support
             if($this->params->get('support_bbcode', false))
@@ -359,8 +360,8 @@ $hashrequest = JRequest::getString('hash');
                     </td>
                     <td valign='top'><textarea style='width:245px;' rows='8' cols='50' name='gbcomment' class='inputbox'><?php echo $this->entry->gbcomment; ?></textarea></td>
                 </tr>
-                <?php // Buttons wie im Eingabeformular - 2.0.1   ?>
                 <tr><td></td><td><input type="checkbox" name="inform" id="inform" value="1"> <label for='inform'><?php echo JTEXT::_('COM_EASYBOOKRELOADED_INFORM'); ?></label></td></tr>
+                <tr><td></td><td><input type="checkbox" name="toggle_state" id="toggle_state" value="1"> <label for="toggle_state"><?php echo JTEXT::_('COM_EASYBOOKRELOADED_TOGGLESTATE'); ?></label></td></tr>
                 <tr>
                     <td width='130'></td>
                     <td style='padding-left: 130px;'><br /><input type='submit' name='send' value='<?php echo JTEXT::_('COM_EASYBOOKRELOADED_SUBMIT_ENTRY'); ?>' class='button' /></td>

@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS  `#__easybook` (
   `id` int(10) NOT NULL auto_increment,
+  `gbid` int(11) NOT NULL DEFAULT '1',
   `gbip` varchar(15) NOT NULL default '',
   `gbname` varchar(40) NOT NULL default '',
   `gbmail` varchar(60) default NULL,
@@ -18,15 +19,25 @@ CREATE TABLE IF NOT EXISTS  `#__easybook` (
   `gbyah` varchar(50) default NULL,
   `gbskype` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-		
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `#__easybook_gb` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `introtext` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+INSERT IGNORE INTO `#__easybook_gb` (`id`, `title`, `introtext`) VALUES
+(1, 'Default Guestbook', '&lt;p&gt;This is the introtext from the guestbook entry!&lt;/p&gt;');
+
 CREATE TABLE IF NOT EXISTS  `#__easybook_badwords` (
   `id` int(10) NOT NULL auto_increment,
   `word` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-        
-INSERT IGNORE INTO `#__easybook_badwords` (`id`, `word`) VALUES 
+
+INSERT IGNORE INTO `#__easybook_badwords` (`id`, `word`) VALUES
 (2, 'analdrilling'),
 (3, '20six'),
 (4, 'ndsfrwudG'),

@@ -64,7 +64,7 @@ class EasybookReloadedModelEntry extends JModel
         $mainframe = JFactory::getApplication();
         $row = $this->getTable();
         $data = JRequest::get('post');
-        $data['gbtext'] = htmlspecialchars(JRequest::getVar('gbtext', NULL, 'post', 'none', JREQUEST_ALLOWRAW), ENT_QUOTES);
+        $data['gbtext'] = htmlspecialchars(JRequest::getVar('gbtext', null, 'post', 'none', JREQUEST_ALLOWRAW), ENT_QUOTES);
 
         $date = JFactory::getDate($data['gbdate'], $mainframe->getCfg('offset'));
         $data['gbdate'] = $date->toMySQL();
@@ -103,6 +103,7 @@ class EasybookReloadedModelEntry extends JModel
             if(!$row->delete($cid))
             {
                 $this->setError($row->_db->getErrorMsg());
+
                 return false;
             }
         }
@@ -124,5 +125,4 @@ class EasybookReloadedModelEntry extends JModel
 
         return true;
     }
-
 }

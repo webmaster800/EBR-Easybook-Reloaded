@@ -21,14 +21,29 @@
  */
 defined('_JEXEC') or die('Restricted access');
 ?>
+    <script type="text/javascript">
+        function calcHeight() {
+            var config_height =
+                document.getElementById('config_iframe').contentWindow.
+                    document.body.scrollHeight;
 
-<iframe src="index.php?option=com_config&view=component&component=com_easybookreloaded&amp;path=&amp;tmpl=component" width="100%" height="2750px" name="Easybook Reloaded - Configuration">
-<p>
-    <a rel="{handler: 'iframe', size: {x: 570, y: 500}}" href="index.php?option=com_config&amp;view=component&amp;component=com_easybookreloaded&amp;path=&amp;tmpl=component" class="modal">
-        <?php echo JText::_('COM_EASYBOOKRELOADED_NOFRAMES'); ?>
-    </a>
-</p>
-</iframe>
-<div style="text-align: center;">
-    <p><?php echo JText::sprintf('COM_EASYBOOKRELOADED_VERSION', _EASYBOOK_VERSION) ?></p>
-</div>
+            document.getElementById('config_iframe').height =
+                config_height + 10;
+        }
+    </script>
+
+    <iframe src="index.php?option=com_config&view=component&component=com_easybookreloaded&amp;path=&amp;tmpl=component"
+            width="100%" scrolling="no" id="config_iframe" onLoad="calcHeight();" height="1px" frameborder="0"
+            name="Easybook Reloaded - Configuration">
+        <p>
+            <a rel="{handler: 'iframe', size: {x: 570, y: 500}}"
+               href="index.php?option=com_config&amp;view=component&amp;component=com_easybookreloaded&amp;path=&amp;tmpl=component"
+               class="modal">
+                <?php echo JText::_('COM_EASYBOOKRELOADED_NOFRAMES'); ?>
+            </a>
+        </p>
+    </iframe>
+    <div style="text-align: center;">
+        <p><?php echo JText::sprintf('COM_EASYBOOKRELOADED_VERSION', _EASYBOOK_VERSION) ?></p>
+    </div>
+<?php echo $this->donation_code_message; ?>

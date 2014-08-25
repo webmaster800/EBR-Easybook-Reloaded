@@ -35,15 +35,15 @@ defined('_JEXEC') or die('Restricted access');
                 </a>
             </strong>
         <?php endif; ?>
+            <div class="easy_intro">
         <?php if($this->params->get('show_introtext') == 1) : ?>
-            <div class="easy_intro">
-                <?php echo nl2br($this->params->get('introtext')); ?>
-            </div>
+            <?php echo nl2br($this->params->get('introtext')); ?>
         <?php elseif($this->params->get('show_introtext') == 2) : ?>
-            <div class="easy_intro">
-                <?php echo JTEXT::_('COM_EASYBOOKRELOADED_INTROTEXT'); ?>
-            </div>
+            <?php echo JTEXT::_('COM_EASYBOOKRELOADED_INTROTEXT'); ?>
+        <?php elseif($this->params->get('show_introtext') == 3) : ?>
+            <?php echo htmlspecialchars_decode($this->gb_data->introtext); ?>
         <?php endif; ?>
+            </div>
         <?php if($this->params->get('offline')) : ?>
             <?php echo JText::_('COM_EASYBOOKRELOADED_GUESTBOOK_OFFLINE_FRONTEND'); ?>
         <?php else : ?>

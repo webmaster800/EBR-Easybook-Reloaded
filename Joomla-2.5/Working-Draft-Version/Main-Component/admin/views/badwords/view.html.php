@@ -35,10 +35,14 @@ class EasybookReloadedViewBadwords extends JView
         $items = $this->get('Data');
         $pagination = $this->get('Pagination');
 
+        // Get donation code message
+        require_once JPATH_COMPONENT.'/helpers/easybookreloaded.php';
+        $donation_code_message = EasybookReloadedHelper::getDonationCodeMessage();
+        $this->assignRef('donation_code_message', $donation_code_message);
+
         $this->assignRef('pagination', $pagination);
         $this->assignRef('items', $items);
 
         parent::display($tpl);
     }
-
 }

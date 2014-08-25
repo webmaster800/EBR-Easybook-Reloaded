@@ -20,17 +20,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die('Restricted access');
-define('_EASYBOOK_VERSION', '2.5-6');
+define('_EASYBOOK_VERSION', '2.5-7');
 
-require_once( JPATH_COMPONENT.DS.'controller.php' );
+require_once(JPATH_COMPONENT.'/controller.php');
 
 if($controller = JRequest::getWord('controller'))
 {
-    $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+    $path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
 
     if(file_exists($path))
     {
-        require_once $path;
+        require_once($path);
     }
     else
     {

@@ -48,7 +48,7 @@ class EasybookReloadedControllerEntry extends JController
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_RIGHTS');
             $type = 'message';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
+            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.JFactory::getSession()->get('gbid', false, 'easybookreloaded'), false), $msg, $type);
         }
     }
 
@@ -74,6 +74,7 @@ class EasybookReloadedControllerEntry extends JController
 
         $params = JComponentHelper::getParams('com_easybookreloaded');
         $id = JRequest::getInt('id', 0);
+        $gbid = JFactory::getSession()->get('gbid', false, 'easybookreloaded');
 
         if((($id == 0 AND _EASYBOOK_CANADD) OR ($id != 0 AND _EASYBOOK_CANEDIT)) AND !$params->get('offline'))
         {
@@ -93,7 +94,7 @@ class EasybookReloadedControllerEntry extends JController
                     $type = 'notice';
                 }
 
-                $link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded', false);
+                $link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false);
 
                 if($id == 0 AND $params->get('send_mail', true))
                 {
@@ -101,7 +102,7 @@ class EasybookReloadedControllerEntry extends JController
                     $mail = JFactory::getMailer();
                     $uri = JFactory::getURI();
                     $db = JFactory::getDBO();
-                    require_once(JPATH_SITE.DS.'components'.DS.'com_easybookreloaded'.DS.'helpers'.DS.'route.php');
+                    require_once(JPATH_SITE.'/components/com_easybookreloaded/helpers/route.php');
 
                     // Load all request variables - because JInput doesn't allow to load the whole data at once, a workaround
                     //is used. This was easily possible with the deprecated JRequest (e.g. JRequest::get('post');)
@@ -110,7 +111,6 @@ class EasybookReloadedControllerEntry extends JController
 
                     // Get unfiltered request variable is only with a trick with JInput possible, so direct access is used instead
                     // Possible solution: list($gbtext) = ($this->_input->get('gbtext', array(0), 'array') - use the filter array
-
                     // With JRequest one could use - JRequest::getVar('gbtext', NULL, 'post', 'none', JREQUEST_ALLOWRAW)
                     $temp_data['gbtext'] = htmlspecialchars($_REQUEST['gbtext'], ENT_QUOTES);
 
@@ -168,12 +168,11 @@ class EasybookReloadedControllerEntry extends JController
                     $hash = substr(base64_encode(md5(serialize($hash))), 0, 16);
                     $hash_id = $row->get('id').'-'.$hash;
 
-                    $href = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRoute($row->get('id'));
-
-                    $hashmail_publish = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('publish_mail').$hash_id;
-                    $hashmail_comment = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('comment_mail').$hash_id;
-                    $hashmail_edit = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('edit_mail').$hash_id;
-                    $hashmail_delete = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('remove_mail').$hash_id;
+                    $href = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRoute($row->get('id'), $gbid);
+                    $hashmail_publish = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('publish_mail', $gbid).$hash_id;
+                    $hashmail_comment = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('comment_mail', $gbid).$hash_id;
+                    $hashmail_edit = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('edit_mail', $gbid).$hash_id;
+                    $hashmail_delete = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRouteHash('remove_mail', $gbid).$hash_id;
 
                     // Mail subject - get the name of the website and add it to the subject
                     $site_name = $config->getValue('sitename');
@@ -223,6 +222,17 @@ class EasybookReloadedControllerEntry extends JController
                     $mail->addrecipient($admins);
                     $replyto = array($row->get('gbmail'), $row->get('gbname'));
                     $mail->addReplyTo($replyto);
+                    $mail->setSender(array($config->get('mailfrom'), $config->get('fromname')));
+
+                    // Which mail type should be used? Default is mail - since 2.5-7
+                    if($config->get('mailer') == 'sendmail')
+                    {
+                        $mail->useSendmail($config->get('sendmail'));
+                    }
+                    elseif($config->get('mailer') == 'smtp')
+                    {
+                        $mail->useSMTP($config->get('smtpauth'), $config->get('smtphost'), $config->get('smtpuser'), $config->get('smtppass'), $config->get('smtpsecure'), $config->get('smtpport'));
+                    }
 
                     // Send the mail
                     $mail->send();
@@ -231,13 +241,12 @@ class EasybookReloadedControllerEntry extends JController
             else
             {
                 $session = JFactory::getSession();
-
                 $errors_output = array();
                 $errors_array = array_keys($session->get('errors', null, 'easybookreloaded'));
 
-                if((in_array("easycalccheck", $errors_array)) OR (in_array("easycalccheck_time", $errors_array)))
+                if((in_array('easycalccheck', $errors_array)) OR (in_array('easycalccheck_time', $errors_array)))
                 {
-                    if(in_array("easycalccheck_time", $errors_array))
+                    if(in_array('easycalccheck_time', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_EASYCALCCHECK_TIME');
                     }
@@ -246,63 +255,71 @@ class EasybookReloadedControllerEntry extends JController
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_EASYCALCCHECK');
                     }
                 }
-                elseif(in_array("easycalccheck_question", $errors_array))
+                elseif(in_array('akismet', $errors_array))
+                {
+                    $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_AKISMET');
+                }
+                elseif(in_array('gbid', $errors_array))
+                {
+                    $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_GBID');
+                }
+                elseif(in_array('easycalccheck_question', $errors_array))
                 {
                     $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_SPAMCHECKQUESTION');
                 }
                 else
                 {
-                    if(in_array("name", $errors_array))
+                    if(in_array('name', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_NAME');
                     }
 
-                    if(in_array("mail", $errors_array))
+                    if(in_array('mail', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_MAIL');
                     }
 
-                    if(in_array("title", $errors_array))
+                    if(in_array('title', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_TITLE');
                     }
 
-                    if(in_array("text", $errors_array))
+                    if(in_array('text', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_TEXT');
                     }
 
-                    if(in_array("aim", $errors_array))
+                    if(in_array('aim', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_AIM');
                     }
 
-                    if(in_array("icq", $errors_array))
+                    if(in_array('icq', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_ICQ');
                     }
 
-                    if(in_array("yah", $errors_array))
+                    if(in_array('yah', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_YAH');
                     }
 
-                    if(in_array("skype", $errors_array))
+                    if(in_array('skype', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_SKYPE');
                     }
 
-                    if(in_array("msn", $errors_array))
+                    if(in_array('msn', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_MSN');
                     }
 
-                    if(in_array("toomanylinks", $errors_array))
+                    if(in_array('toomanylinks', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_TOOMANYLINKS');
                     }
 
-                    if(in_array("iptimelock", $errors_array))
+                    if(in_array('iptimelock', $errors_array))
                     {
                         $errors_output[] = JTEXT::_('COM_EASYBOOKRELOADED_ERROR_TIMELOCK');
                     }
@@ -313,7 +330,7 @@ class EasybookReloadedControllerEntry extends JController
                     }
                 }
 
-                $errors = implode(", ", $errors_output);
+                $errors = implode(', ', $errors_output);
 
                 $msg = JText::sprintf('COM_EASYBOOKRELOADED_PLEASE_VALIDATE_YOUR_INPUTS', $errors);
                 $link = JRoute::_('index.php?option=com_easybookreloaded&controller=entry&task=add&retry=true', false);
@@ -328,7 +345,7 @@ class EasybookReloadedControllerEntry extends JController
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_RIGHTS');
             $type = 'message';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
+            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
         }
     }
 
@@ -345,7 +362,7 @@ class EasybookReloadedControllerEntry extends JController
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_RIGHTS');
             $type = 'message';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
+            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.JFactory::getSession()->get('gbid', false, 'easybookreloaded'), false), $msg, $type);
         }
     }
 
@@ -371,15 +388,14 @@ class EasybookReloadedControllerEntry extends JController
                 $msg = JText::_('COM_EASYBOOKRELOADED_ENTRY_DELETED');
                 $type = 'message';
             }
-
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_RIGHTS');
             $type = 'message';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.JFactory::getSession()->get('gbid', false, 'easybookreloaded'), false), $msg, $type);
     }
 
     function publish()
@@ -409,15 +425,14 @@ class EasybookReloadedControllerEntry extends JController
                     $type = 'message';
                     break;
             }
-
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_RIGHTS');
             $type = 'message';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.JFactory::getSession()->get('gbid', false, 'easybookreloaded'), false), $msg, $type);
     }
 
     function savecomment()
@@ -431,7 +446,7 @@ class EasybookReloadedControllerEntry extends JController
         if(_EASYBOOK_CANEDIT)
         {
             JSession::checkToken() OR jexit('Invalid Token');
-
+            $gbid = JFactory::getSession()->get('gbid', false, 'easybookreloaded');
             $model = $this->getModel('entry');
 
             if(!$row = $model->savecomment())
@@ -447,9 +462,9 @@ class EasybookReloadedControllerEntry extends JController
                     $uri = JFactory::getURI();
                     $mail = JFactory::getMailer();
                     $params = JComponentHelper::getParams('com_easybookreloaded');
-                    require_once(JPATH_SITE.DS.'components'.DS.'com_easybookreloaded'.DS.'helpers'.DS.'route.php');
+                    require_once(JPATH_SITE.'/components/com_easybookreloaded/helpers/route.php');
 
-                    $href = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRoute($data->get('id'));
+                    $href = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRoute($data->get('id'), $gbid);
                     $mail->setsubject(JTEXT::_('COM_EASYBOOKRELOADED_ADMIN_COMMENT_SUBJECT'));
 
                     if($params->get('send_mail_html'))
@@ -474,21 +489,21 @@ class EasybookReloadedControllerEntry extends JController
 
                 $type = 'message';
             }
-
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_RIGHTS');
             $type = 'message';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
     }
 
     function cleancache()
     {
+        $gbid = JFactory::getSession()->get('gbid', false, 'easybookreloaded');
         $cache = JFactory::getCache();
-        $id = md5(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded', false));
+        $id = md5(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false));
         $cache->remove($id, 'page');
         $id_entry = md5(JRoute::_('index.php?option=com_easybookreloaded&controller=entry&task=add', false));
         $cache->remove($id_entry, 'page');
@@ -497,5 +512,4 @@ class EasybookReloadedControllerEntry extends JController
 
         return;
     }
-
 }

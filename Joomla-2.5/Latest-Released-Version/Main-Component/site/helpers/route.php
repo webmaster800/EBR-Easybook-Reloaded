@@ -1,6 +1,6 @@
 <?php
 /**
- * EBR - Easybook Reloaded for Joomla! 3
+ * EBR - Easybook Reloaded for Joomla! 2.5
  * License: GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * Author: Viktor Vogel
  * Projectsite: http://joomla-extensions.kubik-rubik.de/ebr-easybook-reloaded
@@ -30,12 +30,13 @@ class EasybookReloadedHelperRoute
      * @param int $id
      * @return string
      */
-    static function getEasybookReloadedRoute($id)
+    static function getEasybookReloadedRoute($id, $gbid)
     {
         $item_id = EasybookReloadedHelperRoute::getItemId();
         $limit = EasybookReloadedHelperRoute::getLimitstart($id);
 
         $link = 'index.php?option=com_easybookreloaded&view=easybookreloaded';
+        $link .= '&gbid='.$gbid;
         $link .= '&Itemid='.$item_id;
 
         if(!empty($limit))
@@ -54,17 +55,16 @@ class EasybookReloadedHelperRoute
      * @param string $task
      * @return string
      */
-    static function getEasybookReloadedRouteHash($task)
+    static function getEasybookReloadedRouteHash($task, $gbid)
     {
-        $item_id = EasybookReloadedHelperRoute::getItemId();
-
         $link = 'index.php?option=com_easybookreloaded&task=';
 
         // Add the task to the URL
         $link .= $task;
 
-        // Add the Item ID to the URL
-        $link .= '&Itemid='.$item_id;
+        // Add the GB ID and Item ID to the URL
+        $link .= '&gbid='.$gbid;
+        $link .= '&Itemid='.EasybookReloadedHelperRoute::getItemId($gbid);
         $link .= '&hash=';
 
         return $link;
@@ -106,19 +106,28 @@ class EasybookReloadedHelperRoute
      *
      * @return int The Item ID of the menu entry of the component
      */
-    static function getItemId()
+    static function getItemId($gbid = 1)
     {
+        // First get the ItemID from the request variable
+        $item_id_request = JRequest::getInt('Itemid');
+
+        // Now also load the ID from the db to get sure that we have a correct ItemID
         $db = JFactory::getDBO();
-        $query = "SELECT ".$db->quoteName('id')." FROM ".$db->quoteName('#__menu')." WHERE ".$db->quoteName('link')." = 'index.php?option=com_easybookreloaded&view=easybookreloaded' AND ".$db->quoteName('published')." = 1";
+        $query = "SELECT ".$db->quoteName('id')." FROM ".$db->quoteName('#__menu')." WHERE ".$db->quoteName('link')." = 'index.php?option=com_easybookreloaded&view=easybookreloaded&gbid=".$gbid."' AND ".$db->quoteName('published')." = 1";
         $db->setQuery($query);
-        $item_id = $db->loadResult();
+        $item_id = (int)$db->loadResult();
 
-        if(empty($item_id))
+        if(empty($item_id_request) AND !empty($item_id))
         {
-            $item_id = '';
+            return $item_id;
         }
-
-        return (int)$item_id;
-    }
-
+        elseif((!empty($item_id_request) AND empty($item_id)) OR ($item_id_request == $item_id))
+        {
+            return $item_id_request;
+        }
+        else
+        {
+            return false;
+        }
+   }
 }

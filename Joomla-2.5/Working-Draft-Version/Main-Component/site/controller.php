@@ -33,6 +33,7 @@ class EasybookReloadedController extends JController
     {
         $hashrequest = JRequest::getString('hash');
         $check_hash = $this->performMail($hashrequest);
+        $gbid = JRequest::getInt('gbid');
 
         if($check_hash == true)
         {
@@ -53,21 +54,21 @@ class EasybookReloadedController extends JController
                     $type = 'message';
                     break;
             }
-
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_COULD_NOT_CHANGE_PUBLISH_STATUS');
             $type = 'error';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
     }
 
     function remove_mail()
     {
         $hashrequest = JRequest::getString('hash');
         $check_hash = $this->performMail($hashrequest);
+        $gbid = JRequest::getInt('gbid');
 
         if($check_hash == true)
         {
@@ -83,21 +84,21 @@ class EasybookReloadedController extends JController
                 $msg = JText::_('COM_EASYBOOKRELOADED_ENTRY_DELETED');
                 $type = 'message';
             }
-
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_ENTRY_COULD_NOT_BE_DELETED');
             $type = 'error';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
     }
 
     function comment_mail()
     {
         $hashrequest = JRequest::getString('hash');
         $check_hash = $this->performMail($hashrequest);
+        $gbid = JRequest::getInt('gbid');
 
         if($check_hash == true)
         {
@@ -110,7 +111,7 @@ class EasybookReloadedController extends JController
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_COULD_NOT_SAVE_COMMENT');
             $type = 'error';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
+            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
         }
     }
 
@@ -118,6 +119,7 @@ class EasybookReloadedController extends JController
     {
         $hashrequest = JRequest::getString('hash');
         $check_hash = $this->performMail($hashrequest);
+        $gbid = JRequest::getInt('gbid');
 
         if($check_hash == true)
         {
@@ -130,15 +132,21 @@ class EasybookReloadedController extends JController
             }
             else
             {
+                // Change state of the guestbook entry
+                if(isset($row['toggle_state']) AND $row['toggle_state'] == 1)
+                {
+                    $model->publish();
+                }
+
                 if(isset($row['inform']) AND $row['inform'] == 1)
                 {
                     $data = $model->getRow($row['id']);
                     $uri = JFactory::getURI();
                     $mail = JFactory::getMailer();
                     $params = JComponentHelper::getParams('com_easybookreloaded');
-                    require_once(JPATH_SITE.DS.'components'.DS.'com_easybookreloaded'.DS.'helpers'.DS.'route.php');
+                    require_once(JPATH_SITE.'/components/com_easybookreloaded/helpers/route.php');
 
-                    $href = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRoute($data->get('id'));
+                    $href = $uri->base().EasybookReloadedHelperRoute::getEasybookReloadedRoute($data->get('id'), $gbid);
                     $mail->setsubject(JTEXT::_('COM_EASYBOOKRELOADED_ADMIN_COMMENT_SUBJECT'));
 
                     if($params->get('send_mail_html'))
@@ -163,21 +171,21 @@ class EasybookReloadedController extends JController
 
                 $type = 'message';
             }
-
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_COULD_NOT_SAVE_COMMENT');
             $type = 'error';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
     }
 
     function edit_mail()
     {
         $hashrequest = JRequest::getString('hash');
         $check_hash = $this->performMail($hashrequest);
+        $gbid = JRequest::getInt('gbid');
 
         if($check_hash == true)
         {
@@ -189,7 +197,7 @@ class EasybookReloadedController extends JController
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_PLEASE_VALIDATE_YOUR_INPUTS');
             $type = 'error';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
+            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
         }
     }
 
@@ -197,6 +205,7 @@ class EasybookReloadedController extends JController
     {
         $hashrequest = JRequest::getString('hash');
         $check_hash = $this->performMail($hashrequest);
+        $gbid = JRequest::getInt('gbid');
 
         if($check_hash == true)
         {
@@ -221,23 +230,20 @@ class EasybookReloadedController extends JController
                     $msg = JText::_('COM_EASYBOOKRELOADED_ENTRY_SAVED_BUT_HAS_TO_BE_APPROVED');
                     $type = 'notice';
                 }
-                $link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded', false);
             }
             else
             {
                 $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_COULD_NOT_SAVE_COMMENT');
-                $link = JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded', false);
                 $type = 'notice';
             }
-
-            $this->setRedirect($link, $msg, $type);
         }
         else
         {
             $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_COULD_NOT_SAVE_COMMENT');
             $type = 'error';
-            $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
         }
+
+        $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded&view=easybookreloaded&gbid='.$gbid, false), $msg, $type);
     }
 
     function performMail($hashrequest)

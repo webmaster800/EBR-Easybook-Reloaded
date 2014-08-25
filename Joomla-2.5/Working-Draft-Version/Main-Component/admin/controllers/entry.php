@@ -30,6 +30,19 @@ class EasybookReloadedControllerEntry extends JController
         parent::__construct();
 
         $this->registerTask('add', 'edit');
+
+        if(JRequest::getCmd('task', '') == '')
+        {
+            $view = $this->getView('easybookreloaded', 'html');
+
+            if($model_gb = $this->getModel('gb'))
+            {
+                $view->setModel($model_gb, false);
+            }
+
+            require_once JPATH_COMPONENT.'/helpers/easybookreloaded.php';
+            EasybookReloadedHelper::addSubmenu(JRequest::getCmd('view', 'easybookreloaded'));
+        }
     }
 
     function edit()
@@ -37,6 +50,15 @@ class EasybookReloadedControllerEntry extends JController
         JRequest::setVar('view', 'entry');
         JRequest::setVar('layout', 'form');
         JRequest::setVar('hidemainmenu', 1);
+
+        $view = $this->getView('entry', 'html');
+        $view->setLayout('form');
+
+        if($model_gb = $this->getModel('gb'))
+        {
+            $view->setModel($model_gb, false);
+        }
+
         parent::display();
     }
 
@@ -121,5 +143,4 @@ class EasybookReloadedControllerEntry extends JController
 
         $this->setRedirect(JRoute::_('index.php?option=com_easybookreloaded', false), $msg, $type);
     }
-
 }

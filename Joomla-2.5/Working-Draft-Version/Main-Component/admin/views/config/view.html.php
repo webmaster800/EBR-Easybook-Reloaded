@@ -29,7 +29,11 @@ class EasybookReloadedViewConfig extends JView
         JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_EASYBOOKRELOADED')." - ".JText::_('COM_EASYBOOKRELOADED_SUBMENU_CONFIG'), 'easybookreloaded');
         JHTML::_('stylesheet', 'easybookreloaded.css', 'administrator/components/com_easybookreloaded/css/');
 
+        // Get donation code message
+        require_once JPATH_COMPONENT.'/helpers/easybookreloaded.php';
+        $donation_code_message = EasybookReloadedHelper::getDonationCodeMessage();
+        $this->assignRef('donation_code_message', $donation_code_message);
+
         parent::display($tpl);
     }
-
 }

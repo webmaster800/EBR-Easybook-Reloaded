@@ -38,9 +38,21 @@ class EasybookReloadedController extends JController
             JRequest::setVar('view', 'about');
             JRequest::setVar('layout', 'default');
         }
+        elseif($task == 'gb')
+        {
+            JRequest::setVar('view', 'gb');
+            JRequest::setVar('layout', 'default');
+        }
+
+        // We need the gb model also in the default view for the selection list
+        $view = $this->getView('easybookreloaded', 'html');
+
+        if($model_gb = $this->getModel('gb'))
+        {
+            $view->setModel($model_gb, false);
+        }
 
         require_once JPATH_COMPONENT.'/helpers/easybookreloaded.php';
-
         EasybookReloadedHelper::addSubmenu(JRequest::getCmd('view', 'easybookreloaded'));
 
         parent::display();

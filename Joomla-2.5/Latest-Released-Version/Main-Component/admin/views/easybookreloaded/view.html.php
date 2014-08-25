@@ -29,18 +29,28 @@ class EasybookReloadedViewEasybookReloaded extends JView
         JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_EASYBOOKRELOADED')." - ".JText::_('COM_EASYBOOKRELOADED_SUBMENU_ENTRIES'), 'easybookreloaded');
         JToolBarHelper::publishList();
         JToolBarHelper::unpublishList();
-        JToolBarHelper::deleteList();
-        JToolBarHelper::editListX();
         JToolBarHelper::addNewX();
+        JToolBarHelper::editListX();
+        JToolBarHelper::deleteList();
         JToolBarHelper::preferences('com_easybookreloaded', '500');
         JHTML::_('stylesheet', 'easybookreloaded.css', 'administrator/components/com_easybookreloaded/css/');
 
         $items = $this->get('Data');
         $pagination = $this->get('Pagination');
+        $this->_state = $this->get('State');
+
+        // Get Guestbooks for selection list
+        $guestbooks = $this->get('Data', 'gb');
+
+        // Get donation code message
+        require_once JPATH_COMPONENT.'/helpers/easybookreloaded.php';
+        $donation_code_message = EasybookReloadedHelper::getDonationCodeMessage();
+        $this->assignRef('donation_code_message', $donation_code_message);
+
         $this->assignRef('pagination', $pagination);
         $this->assignRef('items', $items);
+        $this->assignRef('guestbooks', $guestbooks);
 
         parent::display($tpl);
     }
-
 }

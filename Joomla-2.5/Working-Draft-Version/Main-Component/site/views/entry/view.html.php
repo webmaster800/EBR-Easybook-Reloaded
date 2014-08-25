@@ -100,6 +100,9 @@ class EasybookReloadedViewEntry extends JView
         $entry = $this->get('Data');
         $entry->ip = getenv('REMOTE_ADDR');
 
+        // Get the correct guestbook ID  - since 2.5-7
+        $this->_gbid = (int)JFactory::getSession()->get('gbid', false, 'easybookreloaded');
+
         // Load antispam checks
         $this->get('EasyCalcCheck');
 

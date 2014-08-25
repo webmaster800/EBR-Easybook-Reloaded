@@ -92,5 +92,4 @@ class EasybookReloadedControllerBadwords extends JController
 
         parent::display();
     }
-
 }

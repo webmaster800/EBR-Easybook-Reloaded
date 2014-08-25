@@ -20,16 +20,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die('Restricted access');
-define('_EASYBOOK_VERSION', '2.5-6');
+define('_EASYBOOK_VERSION', '2.5-7');
 
-require_once(JPATH_COMPONENT.DS.'controller.php');
-require_once(JPATH_COMPONENT.DS.'helpers'.DS.'content.php');
-require_once(JPATH_COMPONENT.DS.'helpers'.DS.'smilie.php');
-require_once(JPATH_COMPONENT.DS.'acl.php');
+require_once(JPATH_COMPONENT.'/controller.php');
+require_once(JPATH_COMPONENT.'/helpers/content.php');
+require_once(JPATH_COMPONENT.'/helpers/smilie.php');
+require_once(JPATH_COMPONENT.'/acl.php');
 
 if($controller = JRequest::getWord('controller'))
 {
-    $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+    $path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
 
     if(file_exists($path))
     {

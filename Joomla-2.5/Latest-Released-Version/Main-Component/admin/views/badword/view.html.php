@@ -48,5 +48,4 @@ class EasybookReloadedViewBadword extends JView
 
         parent::display($tpl);
     }
-
 }

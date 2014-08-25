@@ -37,14 +37,43 @@ class EasybookReloadedModelEasybookReloaded extends JModel
         $limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
         $limitstart = $mainframe->getUserStateFromRequest('easybookreloaded.limitstart', 'limitstart', 0, 'int');
         $limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
+        $search = $mainframe->getUserStateFromRequest('easybookreloaded.filter.search', 'filter_search', null);
+        $gb_id = $mainframe->getUserStateFromRequest('easybookreloaded.filter.gb_id', 'filter_gb_id', null);
 
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
+        $this->setState('filter.search', $search);
+        $this->setState('filter.gb_id', $gb_id);
     }
 
-    function _buildQuery()
+    private function buildQuery()
     {
-        $query = "SELECT * FROM ".$this->_db->nameQuote('#__easybook')." ORDER BY ".$this->_db->nameQuote('gbdate')." DESC";
+        $query = $this->_db->getQuery(true);
+
+        $query->select('a.*');
+        $query->select('b.title as gbid_title');
+        $query->from('#__easybook AS a');
+        $query->from('#__easybook_gb AS b');
+        $query->where('(a.gbid = b.id)');
+
+        // Is a search term provided?
+        $search = $this->getState('filter.search');
+
+        if(!empty($search))
+        {
+            $search = $this->_db->Quote('%'.$this->_db->escape($search, true).'%');
+            $query->where('((a.gbname LIKE '.$search.') OR (a.gbmail LIKE '.$search.') OR (a.gbtext LIKE '.$search.') OR (a.gbtitle LIKE '.$search.') OR (a.gbcomment LIKE '.$search.'))');
+        }
+
+        // Is a category selected?
+        $gb_id = $this->getState('filter.gb_id');
+
+        if(!empty($gb_id))
+        {
+            $query->where('(a.gbid = '.(int)$gb_id.')');
+        }
+
+        $query->order($this->_db->escape('id DESC'));
 
         return $query;
     }
@@ -53,7 +82,7 @@ class EasybookReloadedModelEasybookReloaded extends JModel
     {
         if(empty($this->_data))
         {
-            $query = $this->_buildQuery();
+            $query = $this->buildQuery();
             $this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
         }
 
@@ -75,23 +104,10 @@ class EasybookReloadedModelEasybookReloaded extends JModel
     {
         if(empty($this->_total))
         {
-            $query = $this->_buildQuery();
+            $query = $this->buildQuery();
             $this->_total = $this->_getListCount($query);
         }
 
         return $this->_total;
     }
-
-    function getVersion()
-    {
-        require_once(JPATH_COMPONENT.DS.'helpers'.DS.'version.php');
-
-        if(empty($this->_version))
-        {
-            $this->_version = new EasybookReloadedHelperVersion();
-        }
-
-        return $this->_version;
-    }
-
 }

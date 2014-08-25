@@ -20,45 +20,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die('Restricted access');
-jimport('joomla.application.component.helper');
+jimport('joomla.application.component.view');
 
-class EasybookReloadedHelperVersion extends JObject
+class EasybookReloadedViewEntryGB extends JView
 {
-    /* TODO
-    var $_current;
-
-    function __construct()
+    function display($tpl = null)
     {
-    $this->_loadVersion();
-    }
+        jimport('joomla.html.pane');
 
-    function _loadVersion()
-    {
-    require_once( JPATH_COMPONENT.DS.'libraries'.DS.'httpclient.class.php' );
-    $client = new HttpClient('joomla-extensions.kubik-rubik.de');
+        JHTML::_('stylesheet', 'easybookreloaded.css', 'administrator/components/com_easybookreloaded/css/');
 
-    if (!$client->get('/')) {
-    $this->setError($client->getError());
-    return false;
-    }
+        $entry = $this->get('Data');
+        $isNew = ($entry->id < 1);
 
-    $this->_current = $client->getContent();
-    return true;
-    }
+        $text = $isNew ? JText::_('COM_EASYBOOKRELOADED_NEWENTRYGB') : JText::_('COM_EASYBOOKRELOADED_EDITENTRYGB');
+        JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_EASYBOOKRELOADED').' - '.$text, 'easybookreloaded');
+        JToolBarHelper::save();
 
-    function checkVersion($version)
-    {
-    if ($version == $this->_current) {
-    return 1;
-    } elseif($this->getErrors()) {
-    return -2;
-    } else {
-    return -1;
-    }
-    }
+        if($isNew)
+        {
+            JToolBarHelper::cancel();
+        }
+        else
+        {
+            JToolBarHelper::cancel('cancel', 'Close');
+        }
 
-    function getVersion()
-    {
-    return $this->_current;
-    } */
+        $this->assignRef('entry', $entry);
+        parent::display($tpl);
+    }
 }

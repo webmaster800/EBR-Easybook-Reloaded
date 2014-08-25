@@ -3,11 +3,11 @@
  * @Copyright
  * @package     Field - Kubik-Rubik Versioncheck
  * @author      Viktor Vogel {@link http://www.kubik-rubik.de}
- * @version     Joomla! 2.5 - 1.2
- * @date        Created on 22-Feb-2013
+ * @version     Joomla! 2.5 - 1.3
+ * @date        Created on 2013-08-30
  * @link        Project Site {@link http://joomla-extensions.kubik-rubik.de}
  *
- * @license GNU/GPL
+ * @license     GNU/GPL
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -35,11 +35,27 @@ class JFormFieldKRVersionCheck extends JFormField
     {
         $field_set = $this->form->getFieldset();
 
-        $version_check_enabled = $field_set['jform_versioncheck_enable']->value;
+        if(empty($this->group))
+        {
+            $version_check_enabled = $field_set['jform_versioncheck_enable']->value;
+        }
+        elseif($this->group == 'params')
+        {
+            $version_check_enabled = $field_set['jform_params_versioncheck_enable']->value;
+        }
 
         if(!empty($version_check_enabled))
         {
-            $info = explode('|', $field_set['jform_krversioncheck']->value);
+            if(empty($this->group))
+            {
+                $version_check_data = $field_set['jform_krversioncheck']->value;
+            }
+            elseif($this->group == 'params')
+            {
+                $version_check_data = $field_set['jform_params_krversioncheck']->value;
+            }
+
+            $info = explode('|', $version_check_data);
             $extension = $info[0];
             $version_installed = $info[1];
 
@@ -221,5 +237,4 @@ class JFormFieldKRVersionCheck extends JFormField
 
         return $match;
     }
-
 }

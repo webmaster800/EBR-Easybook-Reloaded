@@ -53,8 +53,18 @@ class EasybookReloadedViewEasybookReloaded extends JView
     		</style>
   		<![endif]-->');
 
+        // Check whether a guestbook ID is set in the request
+        $gbid = $this->get('Gbid');
+
+        if(empty($gbid))
+        {
+            parent::display('error');
+            return;
+        }
+
         // Get some Data
         $entries = $this->get('Data');
+        $gb_data = $this->get('GBData');
         $count = $this->get('Total');
         $pagination = $this->get('Pagination');
 
@@ -68,19 +78,22 @@ class EasybookReloadedViewEasybookReloaded extends JView
         // Add meta data from menu link
         $menu = $menus->getActive();
 
-        if($menu->params->get('menu-meta_description'))
+        if(!empty($menu))
         {
-            $document->setDescription($menu->params->get('menu-meta_description'));
-        }
+            if($menu->params->get('menu-meta_description'))
+            {
+                $document->setDescription($menu->params->get('menu-meta_description'));
+            }
 
-        if($menu->params->get('menu-meta_keywords'))
-        {
-            $document->setMetadata('keywords', $menu->params->get('menu-meta_keywords'));
-        }
+            if($menu->params->get('menu-meta_keywords'))
+            {
+                $document->setMetadata('keywords', $menu->params->get('menu-meta_keywords'));
+            }
 
-        if($menu->params->get('robots'))
-        {
-            $document->setMetadata('robots', $menu->params->get('robots'));
+            if($menu->params->get('robots'))
+            {
+                $document->setMetadata('robots', $menu->params->get('robots'));
+            }
         }
 
         $heading = $document->getTitle();
@@ -88,6 +101,7 @@ class EasybookReloadedViewEasybookReloaded extends JView
         // Assign Data to template
         $this->assignRef('heading', $heading);
         $this->assignRef('entries', $entries);
+        $this->assignRef('gb_data', $gb_data);
         $this->assignRef('count', $count);
         $this->assignRef('pagination', $pagination);
         $this->assignRef('params', $params);

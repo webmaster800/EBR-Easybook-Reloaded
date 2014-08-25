@@ -94,8 +94,22 @@ class EasybookReloadedModelEntry extends JModel
                 {
                     $this->_data->gbname = $user->get('username');
                 }
+
                 $this->_data->gbmail = $user->get('email');
             }
+
+            // Okay, if we get here, then the gbid must be set. If not, then we have a direct call - bad idea! - since 2.5-7
+            $gbid_session = JFactory::getSession()->get('gbid', false, 'easybookreloaded');
+
+            if(empty($gbid_session))
+            {
+                // Do not interrupt, let the fools play their game ;-)
+                JFactory::getSession()->set('gbid', false, 'easybookreloaded');
+            }
+        }
+        else
+        {
+            JFactory::getSession()->set('gbid', $this->_data->gbid, 'easybookreloaded');
         }
 
         return $this->_data;
@@ -270,6 +284,30 @@ class EasybookReloadedModelEntry extends JModel
         $errors = array();
         $error = false;
 
+        // gbid session variable has to be set and the ID in the request has to be the same - since 2.5-7
+        $gbid_session = (int)$session->get('gbid', false, 'easybookreloaded');
+
+        // Clear gbid session variable
+        $session->clear('gbid', 'easybookreloaded');
+
+        if(!empty($gbid_session))
+        {
+            // Ooops, wrong ID submitted - prevent saving of such requests
+            if($data['gbid'] != $gbid_session)
+            {
+                unset($data['gbid']);
+                $error = true;
+                $errors['gbid'] = true;
+            }
+        }
+        else
+        {
+            // No chance, my little friend
+            unset($data['gbid']);
+            $error = true;
+            $errors['gbid'] = true;
+        }
+
         if($params->get('enable_spam_reg') OR $user->guest)
         {
             $time = $session->get('time', null, 'easybookreloaded');
@@ -325,6 +363,50 @@ class EasybookReloadedModelEntry extends JModel
                     {
                         $error = true;
                         $errors['easycalccheck_question'] = true;
+                    }
+                }
+            }
+
+            // Akismet - Further informations: http://akismet.com/
+            if($params->get('akismet'))
+            {
+                require_once(JPATH_COMPONENT.'/helpers/akismet.php');
+                $akismet_key = $params->get('akismet_key');
+
+                if($akismet_key)
+                {
+                    $akismet_url = JURI::getInstance()->toString();
+
+                    $name = $data['gbname'];
+                    $email = $data['gbmail'];
+                    $comment = $data['gbtext'];
+
+                    // Add title if provided
+                    if(!empty($data['gbtitle']))
+                    {
+                        $comment = $data['gbtitle'].' '.$comment;
+                    }
+
+                    // Check homepage if provided
+                    if(!empty($data['gbpage']))
+                    {
+                        $url = $data['gbpage'];
+                    }
+                    else
+                    {
+                        $url = '';
+                    }
+
+                    $akismet = new Akismet($akismet_url, $akismet_key);
+                    $akismet->setCommentAuthor($name);
+                    $akismet->setCommentAuthorEmail($email);
+                    $akismet->setCommentAuthorURL($url);
+                    $akismet->setCommentContent($comment);
+
+                    if($akismet->isCommentSpam())
+                    {
+                        $error = true;
+                        $errors['akismet'] = true;
                     }
                 }
             }
@@ -534,6 +616,25 @@ class EasybookReloadedModelEntry extends JModel
         $data = JRequest::get('post');
         $data['gbcomment'] = htmlspecialchars(JRequest::getVar('gbcomment', NULL, 'post', 'none', JREQUEST_ALLOWRAW), ENT_QUOTES);
 
+        // gbid sessian variable has to be set and the ID in the request has to be the same - since 2.5-7
+        $gbid_session = (int)JFactory::getSession()->get('gbid', false, 'easybookreloaded');
+
+        // Clear gbid session variable
+        JFactory::getSession()->clear('gbid', 'easybookreloaded');
+
+        if(!empty($gbid_session))
+        {
+            // Ooops, wrong ID - prevent saving of such requests
+            if($data['gbid'] != $gbid_session)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
         if(!$row->bind($data))
         {
             $this->setError($this->_db->getErrorMsg());
@@ -545,6 +646,7 @@ class EasybookReloadedModelEntry extends JModel
             $this->setError($this->_db->getErrorMsg());
             return false;
         }
+
         return $data;
     }
 
@@ -600,4 +702,5 @@ class EasybookReloadedModelEntry extends JModel
 
         return $pw;
     }
+
 }

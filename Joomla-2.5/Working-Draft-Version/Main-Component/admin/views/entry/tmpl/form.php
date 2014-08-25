@@ -29,9 +29,21 @@ $pane = JPane::getInstance('sliders');
             <legend><?php echo JText::_('COM_EASYBOOKRELOADED_DETAILS'); ?></legend>
             <?php
             echo $pane->startPane("menu-pane");
-            echo $pane->startPanel(JText ::_('COM_EASYBOOKRELOADED_BASIC_DATA'), "param-page");
+            echo $pane->startPanel(JText::_('COM_EASYBOOKRELOADED_BASIC_DATA'), "param-page");
             ?>
             <table class="admintable">
+                <tr>
+                    <td width="100" align="right" class="key">
+                        <label for="gbid">
+                            <?php echo JText::_('COM_EASYBOOKRELOADED_GB'); ?>:
+                        </label>
+                    </td>
+                    <td>
+                        <select name="gbid" class="inputbox">
+                            <?php echo JHtml::_('select.options', $this->guestbooks, 'id', 'title', $this->entry->gbid); ?>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td width="100" align="right" class="key">
                         <label for="gbname">
@@ -39,7 +51,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbname" id="gbname" size="32" value="<?php echo $this->entry->gbname; ?>" />
+                        <input class="text_area" type="text" name="gbname" id="gbname" size="32"
+                               value="<?php echo $this->entry->gbname; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -59,7 +72,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbmail" id="gbmail" size="32" value="<?php echo $this->entry->gbmail; ?>" />
+                        <input class="text_area" type="text" name="gbmail" id="gbmail" size="32"
+                               value="<?php echo $this->entry->gbmail; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -69,18 +83,12 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input style="float: none !important" class="text_area" type="radio" name="gbmailshow" id="gbmailshow" value="1" <?php
-                            if($this->entry->gbmailshow)
-                            {
-                                echo "checked='checked'";
-                            }
-                            ?> /><?php echo JText::_('JYES'); ?>
-                        <input style="float: none !important" class="text_area" type="radio" name="gbmailshow" id="gbmailshow" value="0" <?php
-                               if(!$this->entry->gbmailshow)
-                               {
-                                   echo "checked='checked'";
-                               }
-                            ?> /><?php echo JText::_('JNO'); ?>
+                        <select name="gbmailshow">
+                            <option
+                                value="1" <?php echo $this->entry->gbmailshow ? 'selected="selected"' : ''; ?>><?php echo JText::_('JYES'); ?></option>
+                            <option
+                                value="0" <?php echo !$this->entry->gbmailshow ? 'selected="selected"' : ''; ?>><?php echo JText::_('JNO'); ?></option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -90,7 +98,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbtitle" id="gbtitle" size="32" value="<?php echo $this->entry->gbtitle; ?>" />
+                        <input class="text_area" type="text" name="gbtitle" id="gbtitle" size="32"
+                               value="<?php echo $this->entry->gbtitle; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -100,7 +109,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <textarea class="text_area" rows="10" cols="60" id="gbtext" name="gbtext"><?php echo $this->entry->gbtext; ?></textarea>
+                        <textarea class="text_area" rows="10" cols="60" id="gbtext"
+                                  name="gbtext"><?php echo $this->entry->gbtext; ?></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -110,13 +120,14 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <textarea class="text_area" rows="6" cols="60" id="gbcomment" name="gbcomment"><?php echo $this->entry->gbcomment; ?></textarea>
+                        <textarea class="text_area" rows="6" cols="60" id="gbcomment"
+                                  name="gbcomment"><?php echo $this->entry->gbcomment; ?></textarea>
                     </td>
                 </tr>
             </table>
             <?php
             echo $pane->endPanel();
-            echo $pane->startPanel(JText :: _('COM_EASYBOOKRELOADED_CONTACT_DETAILS'), "param-page");
+            echo $pane->startPanel(JText:: _('COM_EASYBOOKRELOADED_CONTACT_DETAILS'), "param-page");
             ?>
             <table class="admintable">
                 <tr>
@@ -126,7 +137,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbpage" id="gbpage" size="32" value="<?php echo $this->entry->gbpage; ?>" />
+                        <input class="text_area" type="text" name="gbpage" id="gbpage" size="32"
+                               value="<?php echo $this->entry->gbpage; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -136,7 +148,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbloca" id="gbloca" size="32" value="<?php echo $this->entry->gbloca; ?>" />
+                        <input class="text_area" type="text" name="gbloca" id="gbloca" size="32"
+                               value="<?php echo $this->entry->gbloca; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -146,7 +159,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbicq" id="gbicq" size="32" value="<?php echo $this->entry->gbicq; ?>" />
+                        <input class="text_area" type="text" name="gbicq" id="gbicq" size="32"
+                               value="<?php echo $this->entry->gbicq; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -156,7 +170,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbaim" id="gbaim" size="32" value="<?php echo $this->entry->gbaim; ?>" />
+                        <input class="text_area" type="text" name="gbaim" id="gbaim" size="32"
+                               value="<?php echo $this->entry->gbaim; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -166,7 +181,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbmsn" id="gbmsn" size="32" value="<?php echo $this->entry->gbmsn; ?>" />
+                        <input class="text_area" type="text" name="gbmsn" id="gbmsn" size="32"
+                               value="<?php echo $this->entry->gbmsn; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -176,7 +192,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbyah" id="gbyah" size="32" value="<?php echo $this->entry->gbyah; ?>" />
+                        <input class="text_area" type="text" name="gbyah" id="gbyah" size="32"
+                               value="<?php echo $this->entry->gbyah; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -186,7 +203,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbskype" id="gbskype" size="32" value="<?php echo $this->entry->gbskype; ?>" />
+                        <input class="text_area" type="text" name="gbskype" id="gbskype" size="32"
+                               value="<?php echo $this->entry->gbskype; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -196,7 +214,8 @@ $pane = JPane::getInstance('sliders');
                         </label>
                     </td>
                     <td>
-                        <input class="text_area" type="text" name="gbip" id="gbip" size="32" value="<?php echo $this->entry->gbip; ?>" />
+                        <input class="text_area" type="text" name="gbip" id="gbip" size="32"
+                               value="<?php echo $this->entry->gbip; ?>"/>
                     </td>
                 </tr>
             </table>
@@ -209,10 +228,10 @@ $pane = JPane::getInstance('sliders');
 
     <div class="clr"></div>
 
-    <input type="hidden" name="option" value="com_easybookreloaded" />
-    <input type="hidden" name="id" value="<?php echo $this->entry->id; ?>" />
-    <input type="hidden" name="task" value="" />
-    <input type="hidden" name="controller" value="entry" />
+    <input type="hidden" name="option" value="com_easybookreloaded"/>
+    <input type="hidden" name="id" value="<?php echo $this->entry->id; ?>"/>
+    <input type="hidden" name="task" value=""/>
+    <input type="hidden" name="controller" value="entry"/>
     <?php echo JHTML::_('form.token'); ?>
 </form>
 <div style="text-align: center;">

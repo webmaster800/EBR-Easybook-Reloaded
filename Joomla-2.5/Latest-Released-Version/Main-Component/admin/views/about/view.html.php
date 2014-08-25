@@ -29,20 +29,11 @@ class EasybookReloadedViewAbout extends JView
         JToolBarHelper::title(JText::_('COM_EASYBOOKRELOADED_EASYBOOKRELOADED')." - ".JText::_('COM_EASYBOOKRELOADED_SUBMENU_ABOUT'), 'easybookreloaded');
         JHTML::_('stylesheet', 'easybookreloaded.css', 'administrator/components/com_easybookreloaded/css/');
 
-        $lang = JFactory::getLanguage();
-
-        if($lang->getTag() == "de-DE")
-        {
-            $donate_image = 'components/com_easybookreloaded/images/spenden.png';
-        }
-        else
-        {
-            $donate_image = 'components/com_easybookreloaded/images/donate.png';
-        }
-
-        $this->assignRef('donate_image', $donate_image);
+        // Get donation code message
+        require_once JPATH_COMPONENT.'/helpers/easybookreloaded.php';
+        $donation_code_message = EasybookReloadedHelper::getDonationCodeMessage();
+        $this->assignRef('donation_code_message', $donation_code_message);
 
         parent::display($tpl);
     }
-
 }

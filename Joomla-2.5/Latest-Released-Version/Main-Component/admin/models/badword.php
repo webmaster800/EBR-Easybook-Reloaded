@@ -67,18 +67,21 @@ class EasybookReloadedModelBadword extends JModel
         if(!$row->bind($data))
         {
             $this->setError($this->_db->getErrorMsg());
+
             return false;
         }
 
         if(!$row->check())
         {
             $this->setError($this->_db->getErrorMsg());
+
             return false;
         }
 
         if(!$row->store())
         {
             $this->setError($this->_db->getErrorMsg());
+
             return false;
         }
 
@@ -102,5 +105,4 @@ class EasybookReloadedModelBadword extends JModel
 
         return true;
     }
-
 }

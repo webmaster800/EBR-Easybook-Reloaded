@@ -22,13 +22,15 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_easybookreloaded'); ?>" method="post" name="adminForm" id="adminForm">
-    <div id="editcell">
-        <table class="adminlist">
-            <thead>
+    <form action="<?php echo JRoute::_('index.php?option=com_easybookreloaded'); ?>" method="post" name="adminForm"
+          id="adminForm">
+        <div id="editcell">
+            <table class="adminlist">
+                <thead>
                 <tr>
                     <th width="20">
-                        <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" />
+                        <input type="checkbox" name="toggle" value=""
+                               onclick="checkAll(<?php echo count($this->items); ?>);"/>
                     </th>
                     <th width="10">
                         <?php echo JText::_('COM_EASYBOOKRELOADED_WORD_NUMBER'); ?>
@@ -37,48 +39,49 @@ defined('_JEXEC') or die('Restricted access');
                         <?php echo JText::_('COM_EASYBOOKRELOADED_WORD'); ?>
                     </th>
                 </tr>
-            </thead>
-            <?php
-            $k = 0;
-            $n = count($this->items);
-
-            for($i = 0; $i < $n; $i++)
-            {
-                $row = $this->items[$i];
-                $checked = JHTML::_('grid.id', $i, $row->id);
-                $link = JRoute::_('index.php?option=com_easybookreloaded&controller=badwords&task=edit&cid[]='.$row->id);
-                ?>
-                <tr class="<?php echo "row$k"; ?>">
-                    <td>
-                        <?php echo $checked; ?>
-                    </td>
-                    <td>
-                        <?php echo $row->id; ?>
-                    </td>
-                    <td>
-                        <a href="<?php echo $link ?>"><?php echo $row->word; ?></a>
-                    </td>
-                </tr>
+                </thead>
                 <?php
-                $k = 1 - $k;
-            }
-            ?>
-            <tfoot>
+                $k = 0;
+                $n = count($this->items);
+
+                for($i = 0; $i < $n; $i++)
+                {
+                    $row = $this->items[$i];
+                    $checked = JHTML::_('grid.id', $i, $row->id);
+                    $link = JRoute::_('index.php?option=com_easybookreloaded&controller=badwords&task=edit&cid[]='.$row->id);
+                    ?>
+                    <tr class="<?php echo "row$k"; ?>">
+                        <td>
+                            <?php echo $checked; ?>
+                        </td>
+                        <td>
+                            <?php echo $row->id; ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo $link ?>"><?php echo $row->word; ?></a>
+                        </td>
+                    </tr>
+                    <?php
+                    $k = 1 - $k;
+                }
+                ?>
+                <tfoot>
                 <tr>
                     <td colspan="7">
                         <?php echo $this->pagination->getListFooter(); ?>
                     </td>
                 </tr>
-            </tfoot>
-        </table>
-    </div>
+                </tfoot>
+            </table>
+        </div>
 
-    <input type="hidden" name="option" value="com_easybookreloaded" />
-    <input type="hidden" name="task" value="" />
-    <input type="hidden" name="boxchecked" value="0" />
-    <input type="hidden" name="controller" value="badwords" />
-    <?php echo JHTML::_('form.token'); ?>
-</form>
-<div style="text-align: center;">
-    <p><?php echo JText::sprintf('COM_EASYBOOKRELOADED_VERSION', _EASYBOOK_VERSION) ?></p>
-</div>
+        <input type="hidden" name="option" value="com_easybookreloaded"/>
+        <input type="hidden" name="task" value=""/>
+        <input type="hidden" name="boxchecked" value="0"/>
+        <input type="hidden" name="controller" value="badwords"/>
+        <?php echo JHTML::_('form.token'); ?>
+    </form>
+    <div style="text-align: center;">
+        <p><?php echo JText::sprintf('COM_EASYBOOKRELOADED_VERSION', _EASYBOOK_VERSION) ?></p>
+    </div>
+<?php echo $this->donation_code_message; ?>
