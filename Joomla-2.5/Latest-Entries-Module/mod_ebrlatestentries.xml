@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+    <name>MOD_EBRLATESTENTRIES</name>
+    <version>2.5-2</version>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <author>Viktor Vogel</author>
+    <authorEmail>admin@kubik-rubik.de</authorEmail>
+    <authorUrl>http://joomla-extensions.kubik-rubik.de/</authorUrl>
+    <copyright>Copyright 2012 Viktor Vogel. All rights reserved.</copyright>
+    <creationDate>18-Aug-2012</creationDate>
+    <description>MOD_EBRLATESTENTRIES_XML_DESCRIPTION</description>
+    <files>
+        <filename module="mod_ebrlatestentries">mod_ebrlatestentries.php</filename>
+        <filename module="mod_ebrlatestentries">helper.php</filename>
+        <filename module="mod_ebrlatestentries">index.html</filename>
+        <filename module="mod_ebrlatestentries">ebrlatestentries.css</filename>
+        <filename module="mod_ebrlatestentries">tmpl/default.php</filename>
+        <filename module="mod_ebrlatestentries">tmpl/empty.php</filename>
+        <folder plugin="mod_ebrlatestentries">fields</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.mod_ebrlatestentries.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.mod_ebrlatestentries.sys.ini</language>
+        <language tag="de-DE">language/de-DE/de-DE.mod_ebrlatestentries.ini</language>
+        <language tag="de-DE">language/de-DE/de-DE.mod_ebrlatestentries.sys.ini</language>
+        <language tag="hu-HU">language/hu-HU/hu-HU.mod_ebrlatestentries.ini</language>
+        <language tag="hu-HU">language/hu-HU/hu-HU.mod_ebrlatestentries.sys.ini</language>
+        <language tag="nl-NL">language/nl-NL/nl-NL.mod_ebrlatestentries.ini</language>
+        <language tag="nl-NL">language/nl-NL/nl-NL.mod_ebrlatestentries.sys.ini</language>
+        <language tag="zh-TW">language/zh-TW/zh-TW.mod_ebrlatestentries.ini</language>
+        <language tag="zh-TW">language/zh-TW/zh-TW.mod_ebrlatestentries.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params" addfieldpath="/modules/mod_ebrlatestentries/fields">
+            <fieldset name="basic">
+                <field type="krdonationcodecheck" />
+                <field type="krversioncheck" name="krversioncheck" default="ebr_latestentries|2.5-2" />
+                <field name="ids" type="text" default="" label="MOD_EBRLATESTENTRIES_IDS" description="MOD_EBRLATESTENTRIES_IDSDESC"/>
+                <field name="count" type="text" default="3" label="MOD_EBRLATESTENTRIES_COUNT" description="MOD_EBRLATESTENTRIES_COUNTDESC"/>
+                <field name="length" type="text" default="400" label="MOD_EBRLATESTENTRIES_LENGTH" description="MOD_EBRLATESTENTRIES_LENGTHDESC"/>
+                <field name="wordlength" type="text" default="75" label="MOD_EBRLATESTENTRIES_WORDLENGTH" description="MOD_EBRLATESTENTRIES_WORDLENGTHDESC"/>
+                <field name="showentrylink" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SHOWENTRYLINK" description="MOD_EBRLATESTENTRIES_SHOWENTRYLINKDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="showname" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SHOWNAME" description="MOD_EBRLATESTENTRIES_SHOWNAMEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">MOD_EBRLATESTENTRIES_LINKNAME</option>
+                </field>
+                <field name="showtitle" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SHOWTITLE" description="MOD_EBRLATESTENTRIES_SHOWTITLEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="showsmilies" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SHOWSMILIES" description="MOD_EBRLATESTENTRIES_SHOWSMILIESDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="smiliesset" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SMILIESSET" description="MOD_EBRLATESTENTRIES_SMILIESSETDESC">
+                    <option value="0">MOD_EBRLATESTENTRIES_SET1</option>
+                    <option value="1">MOD_EBRLATESTENTRIES_SET2</option>
+                </field>
+                <field name="convertbbcode" type="radio" default="0" label="MOD_EBRLATESTENTRIES_CONVERTBBCODE" description="MOD_EBRLATESTENTRIES_CONVERTBBCODEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="showcode" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SHOWCODE" description="MOD_EBRLATESTENTRIES_SHOWCODEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="random" type="radio" default="0" label="MOD_EBRLATESTENTRIES_RANDOM" description="MOD_EBRLATESTENTRIES_RANDOMDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="showdate" type="radio" default="0" label="MOD_EBRLATESTENTRIES_SHOWDATE" description="MOD_EBRLATESTENTRIES_SHOWDATEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">MOD_EBRLATESTENTRIES_DATE</option>
+                    <option value="2">MOD_EBRLATESTENTRIES_DATEANDTIME</option>
+                </field>
+                <field name="moduleclass_sfx" type="text" default="" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+            </fieldset>
+            <fieldset name="donation">
+                <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+            </fieldset>
+            <fieldset name="versioncheck">
+                <field name="versioncheck_enable" type="list" default="1" label="KR_VERSION_CHECK" description="KR_VERSION_CHECKDESC">
+                    <option value="1">KR_VERSION_CHECK_ONCESESSION</option>
+                    <option value="2">KR_VERSION_CHECK_ONEVERYLOAD</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
